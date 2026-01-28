@@ -1532,17 +1532,27 @@ function drawMoodChart(canvas, moods) {
     const width = canvas.width;
     const height = canvas.height;
     const padding = 40;
+    const bottomPadding = 60; // Extra space for dates
     const graphWidth = width - 2 * padding;
-    const graphHeight = height - 2 * padding;
+    const graphHeight = height - padding - bottomPadding;
     
     // Draw axes
     ctx.strokeStyle = '#ccc';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(padding, padding);
-    ctx.lineTo(padding, height - padding);
-    ctx.lineTo(width - padding, height - padding);
+    ctx.lineTo(padding, height - bottomPadding);
+    ctx.lineTo(width - padding, height - bottomPadding);
     ctx.stroke();
+    
+    // Draw Y-axis labels (mood values)
+    ctx.fillStyle = '#667eea';
+    ctx.font = '11px Arial';
+    ctx.textAlign = 'right';
+    for (let i = 1; i <= 10; i++) {
+        const y = height - bottomPadding - ((i - 1) / 9) * graphHeight;
+        ctx.fillText(i.toString(), padding - 10, y + 4);
+    }
     
     // Draw line
     ctx.strokeStyle = '#667eea';
@@ -1551,7 +1561,7 @@ function drawMoodChart(canvas, moods) {
     
     moods.forEach((mood, i) => {
         const x = padding + (i / (moods.length - 1 || 1)) * graphWidth;
-        const y = height - padding - ((mood.value - 1) / 9) * graphHeight;
+        const y = height - bottomPadding - ((mood.value - 1) / 9) * graphHeight;
         
         if (i === 0) {
             ctx.moveTo(x, y);
@@ -1562,15 +1572,41 @@ function drawMoodChart(canvas, moods) {
     
     ctx.stroke();
     
-    // Draw points
+    // Draw points and dates
+    ctx.textAlign = 'center';
+    ctx.font = '10px Arial';
+    
     moods.forEach((mood, i) => {
         const x = padding + (i / (moods.length - 1 || 1)) * graphWidth;
-        const y = height - padding - ((mood.value - 1) / 9) * graphHeight;
+        const y = height - bottomPadding - ((mood.value - 1) / 9) * graphHeight;
         
+        // Draw point
         ctx.fillStyle = '#667eea';
         ctx.beginPath();
         ctx.arc(x, y, 5, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Draw date label (only show every nth date to avoid crowding)
+        const showEvery = Math.ceil(moods.length / 5); // Max 5 dates shown
+        if (i % showEvery === 0 || i === moods.length - 1) {
+            ctx.save();
+            ctx.translate(x, height - bottomPadding + 15);
+            ctx.rotate(-Math.PI / 4); // Rotate 45 degrees
+            ctx.fillStyle = '#718096';
+            
+            // Format date as DD.MM
+            const date = new Date(mood.timestamp || Date.now());
+            const dateStr = `${date.getDate()}.${date.getMonth() + 1}`;
+            ctx.fillText(dateStr, 0, 0);
+            ctx.restore();
+        }
+        
+        // Draw value on hover point (show last 3 values)
+        if (i >= moods.length - 3) {
+            ctx.fillStyle = '#667eea';
+            ctx.font = 'bold 11px Arial';
+            ctx.fillText(mood.value.toString(), x, y - 12);
+        }
     });
 }
 
@@ -2079,8 +2115,11 @@ function initStarsGame() {
         e.preventDefault();
         const rect = newCanvas.getBoundingClientRect();
         const touch = e.touches[0];
-        player.x = touch.clientX - rect.left - player.width / 2;
-    });
+        // Scale touch position based on canvas actual size vs display size
+        const scaleX = newCanvas.width / rect.width;
+        const touchX = (touch.clientX - rect.left) * scaleX;
+        player.x = touchX - player.width / 2;
+    }, { passive: false });
     
     loadLeaderboard('stars', 'starsLeaderboard');
     gameLoopStars(ctx, newCanvas);
@@ -2201,8 +2240,11 @@ function initAffirmationRain() {
         e.preventDefault();
         const rect = newCanvas.getBoundingClientRect();
         const touch = e.touches[0];
-        basket.x = touch.clientX - rect.left - basket.width / 2;
-    });
+        // Scale touch position based on canvas actual size vs display size
+        const scaleX = newCanvas.width / rect.width;
+        const touchX = (touch.clientX - rect.left) * scaleX;
+        basket.x = touchX - basket.width / 2;
+    }, { passive: false });
     
     const shortAffirmations = [
         "Tralalero Tralala", "Tung Tung Tung Sahur", "A din din dun", 
