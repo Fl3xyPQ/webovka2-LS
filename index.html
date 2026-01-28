@@ -1,36 +1,34 @@
-git add .
-git commit -m "Update file references to style.css and script.js"
-git push<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     
-    <!-- iOS Specific Meta Tags -->
+    <!-- iOS specifický meta tagy -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Naše Svatyně">
     <meta name="format-detection" content="telephone=no">
     
-    <!-- Theme Color for Mobile Browsers -->
+    <!-- Barva motivu pro mobilní prohlížeče -->
     <meta name="theme-color" content="#ffeaa7">
     <meta name="msapplication-TileColor" content="#ffeaa7">
     
     <title>Naše Svatyně ✨</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Leaflet CSS pro mapu -->
+    <!-- Leaflet CSS na mapu -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <!-- Firebase SDK -->
+    <!-- Firebase - databáze -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    <!-- Soft particle background -->
+    <!-- Jemný částicový pozadí -->
     <div class="particles" id="particles"></div>
     
-    <!-- Main Header Navigation -->
+    <!-- Hlavní navigace -->
     <header class="main-header">
         <div class="header-content">
             <div class="logo" id="homeBtn">
@@ -76,7 +74,7 @@ git push<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- Music Player -->
+    <!-- Hudební přehrávač -->
     <div class="music-player" id="musicPlayer">
         <div class="music-player-content">
             <div class="music-header">
@@ -99,7 +97,7 @@ git push<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- Hidden Audio Elements -->
+    <!-- Skryté audio prvky -->
     <audio id="mainAudio" loop>
         <source src="music/main.mp3" type="audio/mpeg">
         <source src="music/main.ogg" type="audio/ogg">
@@ -117,7 +115,7 @@ git push<!DOCTYPE html>
         <source src="music/letter4.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Homepage - Main Menu -->
+    <!-- Domovská stránka - Hlavní menu -->
     <section class="page homepage active" data-page="home">
         <div class="container">
             <div class="welcome-section">
@@ -165,12 +163,12 @@ git push<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- Comfort Page - Pro útěchu -->
+    <!-- Stránka útěchy -->
     <section class="page comfort-page" data-page="comfort">
         <div class="container">
             <h2 class="page-title">💝 Zlepšení náladindy</h2>
             
-            <!-- Generátor Komplimentů -->
+            <!-- Generátor komplimentů -->
             <div class="section-card">
                 <h3 class="section-heading">✨ Generátor komplimentů</h3>
                 <div class="compliment-display" id="complimentDisplay">
@@ -186,7 +184,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Důvody proč jsi úžasná -->
+            <!-- Důvody proč tě obdivuju -->
             <div class="section-card">
                 <h3 class="section-heading">🌟 Důvody, proč tě obdivuju</h3>
                 <div class="reasons-grid">
@@ -223,7 +221,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Citáty & Myšlenky -->
+            <!-- Citáty a moudra -->
             <div class="section-card">
                 <h3 class="section-heading">💭 Moudra od Jirky</h3>
                 <div class="quotes-container">
@@ -260,7 +258,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Otevři Později -->
+            <!-- Otevři později - dopisy -->
             <div class="section-card">
                 <h3 class="section-heading">📬 Otevři Později</h3>
                 <p class="hint">Každá obálka obsahuje zprávu pro speciální moment...</p>
@@ -292,7 +290,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Letter Modal -->
+            <!-- Modal pro zobrazení dopisů -->
             <div class="letter-modal" id="letterModal">
                 <div class="letter-modal-overlay"></div>
                 <div class="letter-modal-content">
@@ -312,12 +310,12 @@ git push<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- Memories Page - Vzpomínky -->
+    <!-- Stránka se vzpomínkama -->
     <section class="page memories-page" data-page="memories">
         <div class="container">
             <h2 class="page-title">✨ Vzpomínky & Společné Chvíle</h2>
             
-            <!-- Interaktivní Vzpomínky -->
+            <!-- Naše vzpomínky -->
             <div class="section-card">
                 <h3 class="section-heading">💫 Naše Vzpomínky</h3>
                 <p class="hint">Klikej na kartičky pro odhalení vzpomínek</p>
@@ -361,7 +359,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Počítadlo -->
+            <!-- Počítadlo dnů -->
             <div class="section-card">
                 <h3 class="section-heading">⏱️ Od našeho prvního velkého bavení u táboraku</h3>
                 <div class="counter-intro">
@@ -387,12 +385,12 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Mapa Našich Míst -->
+            <!-- Mapa našich míst -->
             <div class="section-card">
                 <h3 class="section-heading">🗺️ Mapa Našich Míst</h3>
                 <p class="hint">Místa, kde jsme byli spoluuu ✨</p>
                 
-                <!-- Interaktivní mapa -->
+                <!-- Interaktivní mapa s našima místama -->
                 <div id="realMap" class="real-map-container"></div>
                 
                 <div class="places-filters">
@@ -503,12 +501,12 @@ git push<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- Fun Page - Zábava -->
+    <!-- Stránka se hrami -->
     <section class="page fun-page" data-page="fun">
         <div class="container">
             <h2 class="page-title">🎮 Hry</h2>
             
-            <!-- Mini Hry Menu -->
+            <!-- Menu miniher -->
             <div class="section-card">
                 <h3 class="section-heading">🕹️ Hry</h3>
                 <p class="hint">Vyber si hru pro zábavu a relaxaci</p>
@@ -541,7 +539,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Memory Game -->
+            <!-- Pexeso -->
             <div id="memoryGame" class="game-container hidden">
                 <div class="game-header">
                     <h3>🃏 Paměťová hra - Pexeso</h3>
@@ -555,7 +553,7 @@ git push<!DOCTYPE html>
                 <div id="memoryBoard" class="memory-board"></div>
             </div>
 
-            <!-- Bubble Pop -->
+            <!-- Praskání bublin -->
             <div id="bubblesGame" class="game-container hidden">
                 <div class="game-header">
                     <h3>🫧 Praskej bubliny - Miluju praskání bublinek</h3>
@@ -568,7 +566,7 @@ git push<!DOCTYPE html>
                 <div id="bubblesContainer" class="bubbles-container"></div>
             </div>
 
-            <!-- Color Match -->
+            <!-- Spojování barev -->
             <div id="colorsGame" class="game-container hidden">
                 <div class="game-header">
                     <h3>🌈 Spoj barvy - Velmi těžká hra ach </h3>
@@ -581,7 +579,7 @@ git push<!DOCTYPE html>
                 <div id="colorGrid" class="color-grid"></div>
             </div>
 
-            <!-- Star Collector -->
+            <!-- Chytání hvězdiček -->
             <div id="starsGame" class="game-container hidden">
                 <div class="game-header">
                     <h3>⭐ Chytej hvězdičky - Chytej hvězdičky</h3>
@@ -599,7 +597,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Affirmation Rain -->
+            <!-- Déšť brain rotu -->
             <div id="affirmationGame" class="game-container hidden">
                 <div class="game-header">
                     <h3>💫 Déšť brain rotu - Chytej brain rot</h3>
@@ -618,7 +616,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
             
-            <!-- Tajná Zpráva -->
+            <!-- Tajná zpráva s hádankou -->
             <div class="section-card">
                 <h3 class="section-heading">🔐 Tajná Zpráva</h3>
                 <div class="puzzle-container" id="puzzleContainer">
@@ -643,12 +641,12 @@ git push<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- Wellness Page - Duševní pohoda -->
+    <!-- Wellness stránka -->
     <section class="page wellness-page" data-page="wellness">
         <div class="container">
             <h2 class="page-title">🧘 Wellness & Relaxandaa</h2>
             
-            <!-- Virtuální Objetí -->
+            <!-- Virtuální obejmutí -->
             <div class="section-card">
                 <h3 class="section-heading"> Sending virtual hugs haha </h3>
                 <p class="hint">Pokud potřebuješ obejmout...je to jen cool funkce, ale jinak je to asi cringe já vím :D</p>
@@ -663,7 +661,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Dýchací Cvičení -->
+            <!-- Dýchací cvičení -->
             <div class="section-card">
                 <h3 class="section-heading">💨 Dýchací Cvičení</h3>
                 <p class="hint">4 sekundy vdech • 4 sekundy zadrž • 4 sekundy výdech, mega COOL co?!</p>
@@ -681,7 +679,7 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Mood Meter -->
+            <!-- Měřič nálady -->
             <div class="section-card">
                 <h3 class="section-heading">🌡️ Stupnice nálady - jak se dneská máš? </h3>
                 <p class="hint">Nastav jak se právě teď cítíš na škále od 1-10 </p>
@@ -706,7 +704,7 @@ git push<!DOCTYPE html>
 
         
 
-            <!-- Emergency Comfort Kit -->
+            <!-- Nouzová sada -->
             <div class="section-card emergency-kit">
                 <h3 class="section-heading">🆘 Nouzovka - JE MI BLBĚ</h3>
                 <p class="hint">Když si lámeš hlavu a už cítíš, že to je nahovno..</p>
@@ -717,7 +715,7 @@ git push<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- Notes Page - Poznámky -->
+    <!-- Stránka s poznámkama -->
     <section class="page notes-page" data-page="notes">
         <div class="container">
             <h2 class="page-title">📝 Poznámky a Deníček hihi </h2>
@@ -739,7 +737,7 @@ git push<!DOCTYPE html>
             <div class="section-card">
                 <h3 class="section-heading">📚 Uložené Poznámky</h3>
                 <div id="savedNotes" class="saved-notes-list">
-                    <!-- Poznámky se budou přidávat dynamicky -->
+                    <!-- Poznámky se přidávaj automaticky -->
                     <p class="empty-state">Zatím žádné poznámky. Začni psát výše!</p>
                 </div>
             </div>
@@ -755,18 +753,18 @@ git push<!DOCTYPE html>
                     <button class="mood-btn" data-mood="naštvaně">😠 Naštvaně</button>
                 </div>
                 <div id="moodHistory" class="mood-history">
-                    <!-- Historie nálad -->
+                    <!-- Historie tvých nálad -->
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Board Page - Sdílená nástěnka -->
+    <!-- Nástěnka -->
     <section class="page board-page" data-page="board">
         <div class="container">
             <h2 class="page-title">📌 Naše Nástěnka</h2>
             
-            <!-- Access Code Protection -->
+            <!-- Ochrana přístupovým kódem -->
             <div class="access-gate" id="accessGate">
                 <div class="access-card">
                     <div class="lock-icon">🔒</div>
@@ -778,10 +776,10 @@ git push<!DOCTYPE html>
                 </div>
             </div>
 
-            <!-- Main Board Content (Hidden until unlocked) -->
+            <!-- Obsah nástěnky (schovaný dokud se neodemkne) -->
             <div class="board-content hidden" id="boardContent">
                 
-                <!-- Textové vzkazy -->
+                <!-- Textový vzkazy -->
                 <div class="section-card">
                     <h3 class="section-heading">💌 Textové Vzkazy</h3>
                     <p class="hint">Vzkazík</p>
@@ -810,7 +808,7 @@ git push<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- Malůvky -->
+                <!-- Sdílený malůvky -->
                 <div class="section-card">
                     <h3 class="section-heading">🎨 Sdílené Malůvky</h3>
                     <p class="hint">Nakresli něco pěkného, uvidím to já a i ty kdykoliv si to tu otevřeš..JŮŮŮ</p>
@@ -859,7 +857,7 @@ git push<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- Floating Buttons -->
+    <!-- Plovoucí tlačítka -->
     <button class="floating-btn" id="floatingQuickAccess" title="Rychlý přístup">
         🏠
     </button>
@@ -868,7 +866,7 @@ git push<!DOCTYPE html>
         🎨
     </button>
 
-    <!-- Leaflet JS pro mapu -->
+    <!-- Leaflet JS na mapu -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
