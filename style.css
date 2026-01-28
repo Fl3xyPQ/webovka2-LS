@@ -1070,6 +1070,7 @@ body {
     perspective: 1000px;
     cursor: pointer;
     min-height: 220px;
+    transition: var(--transition);
 }
 
 .envelope-front {
@@ -1081,6 +1082,7 @@ body {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    height: 100%;
 }
 
 .envelope-front::before {
@@ -1110,9 +1112,16 @@ body {
     transform: translateY(-10px);
 }
 
+.letter-envelope:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
 .letter-envelope:hover .envelope-front {
-    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
+}
+
+.letter-envelope:active {
+    transform: translateY(-4px) scale(0.98);
 }
 
 .envelope-label {
@@ -1125,34 +1134,9 @@ body {
     line-height: 1.6;
 }
 
+/* Stará třída pro kompatibilitu - nyní nepoužíváno */
 .letter-content {
     display: none;
-    background: #fff;
-    color: var(--text-dark);
-    padding: 2.5rem 2rem;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
-    animation: openLetter 0.5s ease;
-    min-height: 220px;
-}
-
-.letter-envelope.opened .envelope-front {
-    display: none;
-}
-
-.letter-envelope.opened .letter-content {
-    display: block;
-}
-
-@keyframes openLetter {
-    from {
-        opacity: 0;
-        transform: scale(0.9) rotateX(-10deg);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) rotateX(0deg);
-    }
 }
 
 .letter-text {
@@ -1544,6 +1528,199 @@ body {
 
 .theme-toggle:hover .theme-icon {
     transform: rotate(20deg);
+}
+
+/* ==============================================
+   MUSIC PLAYER
+   ============================================== */
+
+.music-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.music-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: #f093fb;
+}
+
+.music-icon {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+.music-toggle:hover .music-icon {
+    transform: scale(1.1);
+}
+
+.music-player {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 350px;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 2px solid var(--border-color);
+    z-index: 9999;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(20px);
+}
+
+.music-player.active {
+    transform: translateX(0);
+}
+
+.music-player-content {
+    padding: 1.5rem;
+}
+
+.music-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.music-header h3 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.close-music-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: var(--transition);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.close-music-btn:hover {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ff4444;
+}
+
+.music-body {
+    overflow: hidden;
+}
+
+.music-label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.music-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.music-control-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+}
+
+.music-control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.volume-slider,
+.progress-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-color);
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb,
+.progress-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.volume-slider::-moz-range-thumb,
+.progress-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.volume-label {
+    font-size: 1.2rem;
+}
+
+.music-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.music-progress span {
+    min-width: 35px;
+}
+
+/* Mobile responsiveness for music player */
+@media (max-width: 768px) {
+    .music-player {
+        right: 10px;
+        left: 10px;
+        width: auto;
+        top: 70px;
+    }
+    
+    .music-toggle {
+        padding: 0.5rem 0.8rem;
+        margin-left: 0.5rem;
+    }
 }
 
 /* Theme notification animations */
@@ -2773,8 +2950,25 @@ body {
 #moodChart {
     width: 100%;
     max-width: 500px;
-    margin: 0 auto;
+    height: auto;
+    margin: 1rem auto;
     display: block;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    #moodChart {
+        max-width: 100%;
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    #moodChart {
+        height: 200px;
+    }
 }
 
 /* Daily Affirmation */
@@ -3177,4 +3371,340 @@ body {
     background: linear-gradient(180deg, #1a1a2e 0%, #0f3460 100%);
     border-radius: var(--radius-lg);
     cursor: pointer;
+}
+
+/* ==============================================
+   LETTER MODAL STYLES - VINTAGE 17TH CENTURY
+   ============================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+.letter-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.letter-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.letter-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 15, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.letter-modal-content {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #f4e8d0 0%, #efe0c8 50%, #f4e8d0 100%);
+    max-width: 750px;
+    width: 90%;
+    max-height: 85vh;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(139, 90, 43, 0.3),
+        inset 0 0 100px rgba(255, 255, 255, 0.1);
+    border: 3px solid #8b5a2b;
+    border-radius: 2px;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Vintage paper texture */
+.letter-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 90, 43, 0.03) 2px, rgba(139, 90, 43, 0.03) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139, 90, 43, 0.03) 2px, rgba(139, 90, 43, 0.03) 4px);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Decorative corners */
+.letter-modal-content::after {
+    content: '❧';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.5rem;
+    color: #8b5a2b;
+    opacity: 0.4;
+    z-index: 2;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: scale(0.95) translateY(40px) rotateX(5deg);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0) rotateX(0);
+        opacity: 1;
+    }
+}
+
+.letter-modal-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    background: rgba(139, 90, 43, 0.1);
+    border: 2px solid #8b5a2b;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: #5a3a1a;
+    z-index: 10;
+    line-height: 1;
+    font-family: Georgia, serif;
+}
+
+.letter-modal-close:hover {
+    background: #8b5a2b;
+    color: #f4e8d0;
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 4px 12px rgba(139, 90, 43, 0.4);
+}
+
+.letter-modal-header {
+    padding: 3rem 3rem 2rem;
+    text-align: center;
+    border-bottom: 2px double #8b5a2b;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.letter-modal-header::before {
+    content: '✦';
+    display: block;
+    font-size: 2rem;
+    color: #8b5a2b;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+}
+
+.letter-modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    animation: floatIcon 4s ease-in-out infinite;
+    filter: sepia(0.3);
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+.letter-modal-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #5a3a1a;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(139, 90, 43, 0.1);
+}
+
+.letter-modal-body {
+    padding: 2.5rem 3.5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+    min-height: 0;
+    color: #3a2a1a;
+    line-height: 1.9;
+    position: relative;
+    z-index: 2;
+    text-align: justify;
+}
+
+.letter-modal-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.letter-modal-body::-webkit-scrollbar-track {
+    background: rgba(139, 90, 43, 0.1);
+    border-radius: 10px;
+}
+
+.letter-modal-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8b5a2b 0%, #6b4423 100%);
+    border-radius: 10px;
+    border: 2px solid #f4e8d0;
+}
+
+.letter-modal-body p {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    text-indent: 2rem;
+    font-family: 'Dancing Script', cursive;
+}
+
+.letter-modal-body p:first-of-type::first-letter {
+    font-size: 3rem;
+    font-weight: bold;
+    float: left;
+    line-height: 2.5rem;
+    margin-right: 0.5rem;
+    color: #8b5a2b;
+    font-family: 'Dancing Script', cursive;
+}
+
+.letter-modal-body h4 {
+    font-family: 'Dancing Script', cursive;
+    color: #6b4423;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+}
+
+.letter-modal-body h4::before,
+.letter-modal-body h4::after {
+    content: '❦';
+    margin: 0 0.8rem;
+    opacity: 0.5;
+    font-size: 1.2rem;
+}
+
+.letter-modal-body ul,
+.letter-modal-body ol {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.letter-modal-body li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    text-indent: 0;
+    font-family: 'Dancing Script', cursive;
+}
+
+.letter-modal-body ul li::marker {
+    content: '❧ ';
+    color: #8b5a2b;
+}
+
+.letter-modal-footer {
+    padding: 2rem 3.5rem 2.5rem;
+    text-align: right;
+    border-top: 2px double #8b5a2b;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.letter-modal-footer::after {
+    content: '✦';
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #8b5a2b;
+    margin-top: 1rem;
+    opacity: 0.6;
+}
+
+.letter-modal-signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #5a3a1a;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(139, 90, 43, 0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.letter-modal-signature::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8b5a2b, transparent);
+    opacity: 0.3;
+}
+
+/* Mobile responsiveness - Vintage Letter */
+@media (max-width: 768px) {
+    .letter-modal-content {
+        width: 95%;
+        max-height: 92vh;
+        border-width: 2px;
+    }
+    
+    .letter-modal-header {
+        padding: 2rem 1.8rem 1.5rem;
+    }
+    
+    .letter-modal-body {
+        padding: 1.8rem 2rem;
+    }
+    
+    .letter-modal-footer {
+        padding: 1.5rem 1.8rem 2rem;
+    }
+    
+    .letter-modal-title {
+        font-size: 1.8rem;
+    }
+    
+    .letter-modal-body p {
+        font-size: 0.95rem;
+        text-indent: 1.5rem;
+    }
+    
+    .letter-modal-body p:first-of-type::first-letter {
+        font-size: 2.5rem;
+        line-height: 2rem;
+    }
+    
+    .letter-modal-body h4 {
+        font-size: 1.3rem;
+    }
+    
+    .letter-modal-signature {
+        font-size: 1.5rem;
+    }
+    
+    .letter-modal-icon {
+        font-size: 2.8rem;
+    }
 }
