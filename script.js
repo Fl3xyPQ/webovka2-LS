@@ -141,22 +141,22 @@ function initParticles() {
 // ==============================================
 
 const compliments = [
-    "Jsi nejzajímavější člověk, kterého znám.",
-    "Tvůj úsměv dokáže rozjasnit i ten nejšednivější den.",
-    "Máš úžasnou schopnost dělat lidi okolo sebe šťastnými.",
-    "Tvoje kreativita je naprosto fascinující.",
-    "Jsi silnější, než si myslíš.",
-    "Tvoje odvaha inspiruje ostatní.",
-    "Máš dar rozumět lidem způsobem, jakým málokdo dokáže.",
-    "Tvoje přítomnost je jako teplé objetí v chladný den.",
-    "Svět je díky tobě lepší místo.",
-    "Máš nádhernou duši a ještě krásnější srdce.",
-    "Tvoje inteligence a vtip jsou úchvatné.",
-    "Dokážeš najít krásu i v těch nejobvyklejších věcech.",
-    "Tvoje empatie je tvoje superschopnost.",
-    "Jsi důležitá více, než si dokážeš představit.",
-    "Tvoje energie je nakažlivá v tom nejlepším slova smyslu.",
-    "Máš unikátní schopnost udělat z obyčejných chvil nezapomenutelné vzpomínky."
+    "Tvoje kaštánkové oči dokážou vždycky divy.",
+    "Když se usmíváš, rozzáříš i město bez elektřiny v noci.",
+    "Tvoje mega pozitivní energie, kterou rozdáváš kolem sebe je k nezaplacení.",
+    "Když se směješ, je to jak kdyby Beethoven vstal z mrtvých a dropnul novou symfonii",
+    "Vtípečky, které říkáš mě vždycky strašně rozesmějou a skoro furt si říkám, jak jsem lucky, že se s tebou bavím a sdílím smysl pro humor.",
+    "Máš dokonalou vlastnost vypadat pěkně s jakýmkoliv hairstylem jednak díky stylu, ale taky zdraví vlásků...",
+    "Myslím, že jsi dost empatický člověk a dostatečně inteligentní na to, abys pochopila i MĚ, což je megaa rare.",
+    "Vždy když jsem s tebou, čas plyne rychle, ale je mnohem pěkněji strávený a děkuju vždy všemu, že ho můžu trávit s tebou.",
+    "Pokaždý když mi napíšeš, otevřu si tvoji notifikaci jak jen rychle to jde..",
+    "Málokdo může být jako ty - nádherný zevnitř i zvenku.",
+    "Tvá odhodlanost mě někdy nepřestává upřímně udivovat.",
+    "Mám tě rád jako ty máš ráda Mekáč.",
+    "Někdy jsem na tebe naštvaný, protože když vyjdeš do místnosti, všichni v porovnání s tebou vypadáme jak úplní ňoumové :(",
+    "Hrozně si u tebe cením tvé upřímnosti - nikdy s ní prosím nepřestávej",
+    "Jsi hrozně laskavý a hodný člověk, nikdy to prosím neměň.",
+    "Neber tyto komplimenty jako něco víc jo, jen říkám pravdu :("
 ];
 
 let complimentCount = 0;
@@ -2404,3 +2404,4 @@ function loadLeaderboard(gameName, elementId) {
 }
 
 console.log('🌸 Radanky bezpečné místo initialized! 🌸');
+
