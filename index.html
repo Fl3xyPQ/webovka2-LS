@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    
+    <!-- iOS Specific Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Naše Svatyně">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#ffeaa7">
+    <meta name="msapplication-TileColor" content="#ffeaa7">
+    
+    <title>Naše Svatyně ✨</title>
+    <link rel="stylesheet" href="new-style.css">
+    
+    <!-- Leaflet CSS pro mapu -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- Soft particle background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Main Header Navigation -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo" id="homeBtn">
+                <span class="logo-icon">🏠</span>
+                <span class="logo-text">Naše Svatyně</span>
+            </div>
+            <nav class="header-nav">
+                <button class="nav-btn active" data-target="home">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Domů</span>
+                </button>
+                <button class="nav-btn" data-target="comfort">
+                    <span class="nav-icon">💝</span>
+                    <span class="nav-label">Útěcha</span>
+                </button>
+                <button class="nav-btn" data-target="memories">
+                    <span class="nav-icon">✨</span>
+                    <span class="nav-label">Vzpomínky</span>
+                </button>
+                <button class="nav-btn" data-target="fun">
+                    <span class="nav-icon">🎮</span>
+                    <span class="nav-label">Zábava</span>
+                </button>
+                <button class="nav-btn" data-target="wellness">
+                    <span class="nav-icon">🧘</span>
+                    <span class="nav-label">Wellness</span>
+                </button>
+                <button class="nav-btn" data-target="notes">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-label">Poznámky</span>
+                </button>
+                <button class="nav-btn" data-target="board">
+                    <span class="nav-icon">📌</span>
+                    <span class="nav-label">Nástěnka</span>
+                </button>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" title="Změnit téma">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Homepage - Main Menu -->
+    <section class="page homepage active" data-page="home">
+        <div class="container">
+            <div class="welcome-section">
+                <h1 class="main-title">Burrito a Qurrito - Oázka klidu</h1>
+                <p class="main-subtitle">Vítej zpátky. Co dnes potřebuješ?</p>
+            </div>
+            
+            <div class="mood-cards">
+                <div class="mood-card" data-navigate="comfort">
+                    <div class="mood-icon">😢</div>
+                    <h3>Je mi smutno</h3>
+                    <p>¨Snaha o zlepšení nálady, povzbuzení..</p>
+                </div>
+                
+                <div class="mood-card" data-navigate="comfort">
+                    <div class="mood-icon">😠</div>
+                    <h3>Jsem naštvaná </h3>
+                    <p>Uklidnění, pochopení..</p>
+                </div>
+                
+                <div class="mood-card" data-navigate="memories">
+                    <div class="mood-icon">✨</div>
+                    <h3>MÁM NÁLADU NA VZPOMÍNKYY</h3>
+                    <p>Společné momentíky, mapka a počítadlo dnů</p>
+                </div>
+                
+                <div class="mood-card" data-navigate="fun">
+                    <div class="mood-icon">🎮</div>
+                    <h3>Chci si zahrát</h3>
+                    <p>Hry..buďto na relax nebo u nich chytneš rapla..</p>
+                </div>
+                
+                <div class="mood-card" data-navigate="notes">
+                    <div class="mood-icon">📝</div>
+                    <h3>Chci si něco zapsat</h3>
+                    <p>Soukromé poznámky, nálada, apod.</p>
+                </div>
+                
+                <div class="mood-card highlight" data-navigate="comfort">
+                    <div class="mood-icon">🌈</div>
+                    <h3>Jen tak navštívit</h3>
+                    <p>Prozkoumat všechny sekce</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comfort Page - Pro útěchu -->
+    <section class="page comfort-page" data-page="comfort">
+        <div class="container">
+            <h2 class="page-title">💝 Zlepšení náladindy</h2>
+            
+            <!-- Generátor Komplimentů -->
+            <div class="section-card">
+                <h3 class="section-heading">✨ Generátor komplimentů</h3>
+                <div class="compliment-display" id="complimentDisplay">
+                    <p class="compliment-text">Zmáčkni tlačítko pro pravdivý kompliment! 💫</p>
+                </div>
+                <button class="compliment-btn" id="generateCompliment">
+                    <span class="btn-icon">✨</span>
+                    Další kompliment
+                    <span class="btn-icon">✨</span>
+                </button>
+                <div class="compliment-counter">
+                    Vygenerováno: <span id="complimentCount">0</span> komplimentů
+                </div>
+            </div>
+
+            <!-- Důvody proč jsi úžasná -->
+            <div class="section-card">
+                <h3 class="section-heading">🌟 Důvody, proč tě obdivuju</h3>
+                <div class="reasons-grid">
+                    <div class="reason-card">
+                        <div class="card-icon">🌟</div>
+                        <h4>Tvá vytrvalost</h4>
+                        <p>Rady, na světě není tolik lidí, kteří si dokážou jít za svým cílem jako ty. Něco si stanovíš a dojdeš k tomu, ať to stojí co to stojí – ani nevíš, jak moc si toto u člověka cením.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="card-icon">✨</div>
+                        <h4>Tvůj Humor</h4>
+                        <p>Fr oba dva se shodneme na tom, že ho máme úplně dokonale stejný, je to nejpěknější humor vůbec a kombinuj to s možností se i tak bavit deeply apod..to je recept na DOKONALOU ;iózu, ne snad?</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="card-icon">🎨</div>
+                        <h4>Tvá Kreativita</h4>
+                        <p>Uplatňuje se v mnoha místech..outfity, vaření, nápady a vtípky. Dokážeš vymyslet kde co a říkej si co chceš, většinou je to absolutní peakčovina..</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="card-icon">💫</div>
+                        <h4>Tvá Energie</h4>
+                        <p>Přes to vše, co ti život nachystal a s čím se vyrovnáváš nepřestáváš být pozitivní, i kdyby jen na oko, dokážeš lidi rozesmát a nerozséváš svou špatnou náladu na ostatní..</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="card-icon">🌈</div>
+                        <h4>Tvá Upřímnost</h4>
+                        <p>Dokážeš říct co si opravdu myslíš, ať už to zaškatulkuješ, nebo řekneš narovinu tvrdě, člověk to pochopí a měl by si cenit, že jsi mu to řekla.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="card-icon">⭐</div>
+                        <h4>A mnoho dalšího...</h4>
+                        <p>Komplexní člověk jako ty má mnoho naprosto  vlastností, ale všechny je tu vypsat nemůžu, avšak často ti je opakuju a myslím, že nějaký přehled máš..někde bude možná i soupis..hmm</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Citáty & Myšlenky -->
+            <div class="section-card">
+                <h3 class="section-heading">💭 Moudra od Jirky</h3>
+                <div class="quotes-container">
+                    <div class="quote-card active">
+                        <div class="quote-mark">"</div>
+                        <p class="quote-text">Skibidi toaleta se nezajímá o názor podřadné bety</p>
+                        <div class="quote-author">- O tobě - jsi toaleta</div>
+                    </div>
+                    <div class="quote-card">
+                        <div class="quote-mark">"</div>
+                        <p class="quote-text">We accept the love we think we deserve - ty si zasloužíš svět</p>
+                        <div class="quote-author">- O lásce</div>
+                    </div>
+                    <div class="quote-card">
+                        <div class="quote-mark">"</div>
+                        <p class="quote-text">Ke štěstí stačí málo - věrný kamarád, dva panáky a půllitr piva</p>
+                        <div class="quote-author">- O štěstí P.S pozvi mě dík</div>
+                    </div>
+                    <div class="quote-card">
+                        <div class="quote-mark">"</div>
+                        <p class="quote-text">Jídlo řeší veškeré problémy..ham ham</p>
+                        <div class="quote-author">- O tom jak zlý je hlad</div>
+                    </div>
+                </div>
+                <div class="quote-controls">
+                    <button class="quote-btn" id="prevQuote">←</button>
+                    <div class="quote-indicators">
+                        <span class="quote-dot active"></span>
+                        <span class="quote-dot"></span>
+                        <span class="quote-dot"></span>
+                        <span class="quote-dot"></span>
+                    </div>
+                    <button class="quote-btn" id="nextQuote">→</button>
+                </div>
+            </div>
+
+            <!-- Otevři Později -->
+            <div class="section-card">
+                <h3 class="section-heading">📬 Otevři Později</h3>
+                <p class="hint">Každá obálka obsahuje zprávu pro speciální moment...</p>
+                <div class="letters-grid">
+                    <div class="letter-envelope" data-letter="1">
+                        <div class="envelope-front">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-label">Když máš<br>den blbec</div>
+                        </div>
+                        <div class="letter-content">
+                            <div class="letter-text">Tohle ještě dodělám bobe, musím to sepsat</div>
+                            <button class="close-letter">Zavřít</button>
+                        </div>
+                    </div>
+                    <div class="letter-envelope" data-letter="2">
+                        <div class="envelope-front">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-label">Když ti<br>chybím</div>
+                        </div>
+                        <div class="letter-content">
+                            <div class="letter-text">Tohle ještě dodělám bobe, musím to sepsat</div>
+                            <button class="close-letter">Zavřít</button>
+                        </div>
+                    </div>
+                    <div class="letter-envelope" data-letter="3">
+                        <div class="envelope-front">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-label">Když se<br>nudíš</div>
+                        </div>
+                        <div class="letter-content">
+                            <div class="letter-text">ZAVOLEJ, NAPIŠ, COKOLIV, a jdeme hrát ROBLOX nebo cokoliv jiného!</div>
+                            <button class="close-letter">Zavřít</button>
+                        </div>
+                    </div>
+                    <div class="letter-envelope" data-letter="4">
+                        <div class="envelope-front">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-label">Když tě<br>něco bolí</div>
+                        </div>
+                        <div class="letter-content">
+                            <div class="letter-text">Tohle ještě dodělám bobe, musím to sepsat</div>
+                            <button class="close-letter">Zavřít</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memories Page - Vzpomínky -->
+    <section class="page memories-page" data-page="memories">
+        <div class="container">
+            <h2 class="page-title">✨ Vzpomínky & Společné Chvíle</h2>
+            
+            <!-- Interaktivní Vzpomínky -->
+            <div class="section-card">
+                <h3 class="section-heading">💫 Naše Vzpomínky</h3>
+                <p class="hint">Klikej na kartičky pro odhalení vzpomínek</p>
+                <div class="memory-wall">
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <span class="memory-date">📅 13.11.2024</span>
+                            <p>V tento den jsme spolu hráli Roblox - hotel a vyfotila ses s Mr. Kebab</p>
+                        </div>
+                    </div>
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <span class="memory-date">📅 16.11.2024</span>
+                            <p>BRNOO - VIDA! Centrum, Vaňkovka, Freakman, Špilberk, ... </p>
+                        </div>
+                    </div>
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <span class="memory-date">📅 29.11.2024</span>
+                            <p>Stužkáčč - to bylo pěknýýýý, kytičkaaa a vycházka</p>
+                        </div>
+                    </div>
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <span class="memory-date">📅 23.7.2025</span>
+                            <p>Tady někdo breaknul no contaaact ❤️</p>
+                        </div>
+                    </div>
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <span class="memory-date">📅 4.10.2025</span>
+                            <p>Vídeeeeň, Jadanka a Jižík si dali mekáčeeek, prošli památky a navázali zajímavý oční kontakt v metru</p>
+                        </div>
+                    </div>
+                    <div class="memory-item">
+                        <div class="memory-content">
+                            <span class="memory-date">📅 21.11.2025</span>
+                            <p>Prahaaaa, hrozna kosa, krasné městečko a ten Karlův most byl fakt krutopřísný, tu fotku z něj mám doteď na tapetěě</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Počítadlo -->
+            <div class="section-card">
+                <h3 class="section-heading">⏱️ Od našeho prvního velkého bavení u táboraku</h3>
+                <div class="counter-intro">
+                    <p>5. září 2024 - To je doba, viď? ✨</p>
+                </div>
+                <div class="counter-display" id="counterDisplay">
+                    <div class="counter-item">
+                        <div class="counter-number" id="days">0</div>
+                        <div class="counter-label">dní</div>
+                    </div>
+                    <div class="counter-item">
+                        <div class="counter-number" id="hours">0</div>
+                        <div class="counter-label">hodin</div>
+                    </div>
+                    <div class="counter-item">
+                        <div class="counter-number" id="minutes">0</div>
+                        <div class="counter-label">minut</div>
+                    </div>
+                    <div class="counter-item">
+                        <div class="counter-number" id="seconds">0</div>
+                        <div class="counter-label">sekund</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa Našich Míst -->
+            <div class="section-card">
+                <h3 class="section-heading">🗺️ Mapa Našich Míst</h3>
+                <p class="hint">Místa, kde jsme byli spoluuu ✨</p>
+                
+                <!-- Interaktivní mapa -->
+                <div id="realMap" class="real-map-container"></div>
+                
+                <div class="places-filters">
+                    <button class="filter-btn active" data-filter="all">🌍 Všechna</button>
+                    <button class="filter-btn" data-filter="restaurant">🍕 Restaurace</button>
+                    <button class="filter-btn" data-filter="cinema">🎬 Kina</button>
+                    <button class="filter-btn" data-filter="park">🌳 Parky</button>
+                    <button class="filter-btn" data-filter="other">⭐ Ostatní</button>
+                </div>
+                
+                <div class="places-list" id="placesList">
+                    <div class="place-item" data-category="restaurant">
+                        <div class="place-icon">🍕</div>
+                        <div class="place-details">
+                            <h4 class="place-name">McDonald's</h4>
+                                <p class="place-description">Mekáček nikdy nezklamal, vždy naprosto úžasný, ať už sýrovka v Praze, cheeseburgery v UHu, nebo klasika v Brně s čajem za 40,-</p>
+                                <div class="place-meta">
+                                <span class="place-date">📅 HROZNĚ MOCKRÁT</span>
+                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="place-item" data-category="cinema">
+                        <div class="place-icon">🎬</div>
+                        <div class="place-details">
+                            <h4 class="place-name">Kino Hodonín</h4>
+                            <p class="place-description">Ukradené Vánoce...MEGA dobrý film prostě od Burtona, díkybohu, že tě tam přešla ta bolest břichaa, ale pak se nešťastně vrátila, no ale zvládli jsme to domů oba krásně..</p>
+                            <div class="place-meta">
+                                <span class="place-date">📅 Vánoce 2024</span>
+                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="place-item" data-category="park">
+                        <div class="place-icon">🌳</div>
+                        <div class="place-details">
+                            <h4 class="place-name">Park v Brně</h4>
+                            <p class="place-description">Jůůů...parky. Prostě to nejlepší místo na deeptalky, posezení a odpočinek. Pamatuju si první i poslední park, vždycky to tam bylo krásný a vždycky bude, pak jsme hledali kočičí kavárnu a já záchody..vopa</p>
+                            <div class="place-meta">
+                                <span class="place-date">📅 DVAKRÁT - 2024 a 2025</span>
+                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="place-item" data-category="park">
+                        <div class="place-icon">🌳</div>
+                        <div class="place-details">
+                            <h4 class="place-name">Vídeňský park</h4>
+                            <p class="place-description">AAAAA, tam to bylo úžasnýýý...schnitzel a prdící vlak, na to vzpomínám pěkně, sice ten déšť si Vídeň mohla odpustit, ale tak co už. Bylo mi s tebou dobře Radankoo..moc.</p>
+                            <div class="place-meta">
+                                <span class="place-date">📅 4.10.2025</span>
+                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="place-item" data-category="other">
+                        <div class="place-icon">🎮</div>
+                        <div class="place-details">
+                            <h4 class="place-name">Domeček v Bukovanech</h4>
+                            <p class="place-description">Pařící doupě pro GTA 5 a SIMS 4, domov Jižíka, byly tu krásné sleepovery i hang outy a filmů jsme tu zhlédli fr mega moc, když je spočítáš celkově.</p>
+                            <div class="place-meta">
+                                <span class="place-date">📅 Mnohokráát</span>
+                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="place-item" data-category="restaurant">
+                        <div class="place-icon">🍔</div>
+                        <div class="place-details">
+                            <h4 class="place-name">Fast Food</h4>
+                            <p class="place-description">Bohužel, restaurace jsou přecijen velice drahé, takže okupujeme fast foody - ať už KFC v Praze, nebo UGO Salaterie v Brně poprvé, máme to rádi, chutná nám to..tak proč ne viď? Pamatuju si, jak jsem jedl v UGU a tys tam spala..hihi</p>
+                            <div class="place-meta">
+                                <span class="place-date">📅 KAŽDÝ HANGOUT</span>
+                                <span class="place-rating">⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="place-item" data-category="other">
+                        <div class="place-icon">🎉</div>
+                        <div class="place-details">
+                            <h4 class="place-name">Domeček ve Vracově</h4>
+                            <p class="place-description">Juuuuuu, tady bydlí FIFINCIII, domov Jadanky, vaří se tu minimálně podle vzhledu asi lépe než u nás..díky jedné určité šéfkuchařce, hang outy tu byly taky mega pěknééé, furt si pamatuju jak jsi mi trhala obočí ach..TĚŠÍM SE NA NAFUKOVAČKU hiih</p>
+                            <div class="place-meta">
+                                <span class="place-date">📅 2024&2025</span>
+                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="places-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalPlaces">6</div>
+                        <div class="stat-label">Celkem míst</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="favoriteCategory">🍕</div>
+                        <div class="stat-label">Oblíbená kategorie</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Page - Zábava -->
+    <section class="page fun-page" data-page="fun">
+        <div class="container">
+            <h2 class="page-title">🎮 Hry</h2>
+            
+            <!-- Mini Hry Menu -->
+            <div class="section-card">
+                <h3 class="section-heading">🕹️ Hry</h3>
+                <p class="hint">Vyber si hru pro zábavu a relaxaci</p>
+                <div class="games-menu">
+                    <button class="game-card" data-game="memory">
+                        <div class="game-icon">🃏</div>
+                        <h4>Paměťová hra</h4>
+                        <p>Najdi všechny páry karet</p>
+                    </button>
+                    <button class="game-card" data-game="bubbles">
+                        <div class="game-icon">🫧</div>
+                        <h4>Praskej bubliny</h4>
+                        <p>Praskej bublinky pro relax</p>
+                    </button>
+                    <button class="game-card" data-game="colors">
+                        <div class="game-icon">🌈</div>
+                        <h4>Spoj barvy</h4>
+                        <p>Spoj stejné barvy</p>
+                    </button>
+                    <button class="game-card" data-game="stars">
+                        <div class="game-icon">⭐</div>
+                        <h4>Chytej hvězdičky</h4>
+                        <p>Chytej padající hvězdičky</p>
+                    </button>
+                    <button class="game-card" data-game="affirmation">
+                        <div class="game-icon">💫</div>
+                        <h4>Déšť brain rotu</h4>
+                        <p>Chytej brain rot</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Memory Game -->
+            <div id="memoryGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>🃏 Paměťová hra - Pexeso</h3>
+                    <button class="close-game-btn">✖ Zavřít</button>
+                </div>
+                <div class="game-stats">
+                    <span>Tahy: <strong id="memoryMoves">0</strong></span>
+                    <span>Čas: <strong id="memoryTime">0:00</strong></span>
+                    <button id="memoryRestart">🔄 Nová hra</button>
+                </div>
+                <div id="memoryBoard" class="memory-board"></div>
+            </div>
+
+            <!-- Bubble Pop -->
+            <div id="bubblesGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>🫧 Praskej bubliny - Miluju praskání bublinek</h3>
+                    <button class="close-game-btn">✖ Zavřít</button>
+                </div>
+                <div class="game-stats">
+                    <span>Skóre: <strong id="bubbleScore">0</strong></span>
+                    <span>Rekord: <strong id="bubbleRecord">0</strong></span>
+                </div>
+                <div id="bubblesContainer" class="bubbles-container"></div>
+            </div>
+
+            <!-- Color Match -->
+            <div id="colorsGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>🌈 Spoj barvy - Velmi těžká hra ach </h3>
+                    <button class="close-game-btn">✖ Zavřít</button>
+                </div>
+                <div class="game-stats">
+                    <span>Úroveň: <strong id="colorLevel">1</strong></span>
+                    <span>Tahy: <strong id="colorMoves">0</strong></span>
+                </div>
+                <div id="colorGrid" class="color-grid"></div>
+            </div>
+
+            <!-- Star Collector -->
+            <div id="starsGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>⭐ Chytej hvězdičky - Chytej hvězdičky</h3>
+                    <button class="close-game-btn">✖ Zavřít</button>
+                </div>
+                <div class="game-stats">
+                    <span>Hvězdičky: <strong id="starsCollected">0</strong></span>
+                    <span>Životy: <strong id="starsLives">❤️❤️❤️</strong></span>
+                    <span>Rychlost: <strong id="starsSpeed">1.0x</strong></span>
+                </div>
+                <canvas id="starsCanvas" width="600" height="400"></canvas>
+                <div class="leaderboard">
+                    <h4>🏆 Top 5 Skóre</h4>
+                    <div id="starsLeaderboard" class="leaderboard-list">Načítání...</div>
+                </div>
+            </div>
+
+            <!-- Affirmation Rain -->
+            <div id="affirmationGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>💫 Déšť brain rotu - Chytej brain rot</h3>
+                    <button class="close-game-btn">✖ Zavřít</button>
+                </div>
+                <div class="game-stats">
+                    <span>Brain Rot: <strong id="affirmationCount">0</strong></span>
+                    <span>Životy: <strong id="affirmationLives">💛💛💛💛💛</strong></span>
+                    <span>Boost: <strong id="affirmationBoost">+0%</strong></span>
+                    <span>Rychlost: <strong id="affirmationSpeed">1.0x</strong></span>
+                </div>
+                <canvas id="affirmationCanvas" width="600" height="400"></canvas>
+                <div class="leaderboard">
+                    <h4>🏆 Top 5 Skóre</h4>
+                    <div id="affirmationLeaderboard" class="leaderboard-list">Načítání...</div>
+                </div>
+            </div>
+            
+            <!-- Tajná Zpráva -->
+            <div class="section-card">
+                <h3 class="section-heading">🔐 Tajná Zpráva</h3>
+                <div class="puzzle-container" id="puzzleContainer">
+                    <p class="puzzle-hint">Když toto uhodneš..dostaneš tajnou zprávičku
+                    <div class="puzzle-grid" id="puzzleGrid"></div>
+                    <div class="puzzle-question">
+                        <p><strong>Hádanka:</strong></p>
+                        <p id="riddleText">Víš co dělá řezník, když slyší vtip?</p>
+                        <input type="text" id="riddleAnswer" class="riddle-input" placeholder="Tvoje odpověď...">
+                        <button id="checkAnswer" class="check-btn">Zkontrolovat</button>
+                    </div>
+                </div>
+                <div class="secret-message hidden" id="secretMessage">
+                    <div class="secret-content">
+                        <div class="unlock-animation">🔓</div>
+                        <h3>Hezky pěkně, ten horor s tebou pohl viď?!</h3>
+                        <p class="secret-text">Bobe..chtěl bych ti říct, že pro mě neskutečně znamenáš. Jsem neskutečně vděčný a navždy budu, že jsem našel takovou úžasnou osůbku jako jsi ty, Rady. Napsal bych ti klidně slohovku o tom, jak moc tě mám rád a co pro mě znamenáš..ale to na stránku nahraju někdy jindy jo? xoxo Jirka ❤️</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wellness Page - Duševní pohoda -->
+    <section class="page wellness-page" data-page="wellness">
+        <div class="container">
+            <h2 class="page-title">🧘 Wellness & Relaxandaa</h2>
+            
+            <!-- Virtuální Objetí -->
+            <div class="section-card">
+                <h3 class="section-heading"> Sending virtual hugs haha </h3>
+                <p class="hint">Pokud potřebuješ obejmout...je to jen cool funkce, ale jinak je to asi cringe já vím :D</p>
+                <div class="hug-center">
+                    <button id="hugBtn" class="hug-btn">
+                        <span class="hug-icon">🤗</span>
+                        <span>Chci obejmout</span>
+                    </button>
+                    <div class="hug-counter">
+                        Rozdaných objetít: <strong id="hugCount">0</strong> ❤️
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dýchací Cvičení -->
+            <div class="section-card">
+                <h3 class="section-heading">💨 Dýchací Cvičení</h3>
+                <p class="hint">4 sekundy vdech • 4 sekundy zadrž • 4 sekundy výdech, mega COOL co?!</p>
+                <div class="breathing-container">
+                    <div id="breathingCircle" class="breathing-circle">
+                        <div class="breathing-text" id="breathingText">Začni dýchat</div>
+                    </div>
+                    <div class="breathing-controls">
+                        <button id="startBreathing" class="breathing-btn">▶️ Start</button>
+                        <button id="stopBreathing" class="breathing-btn">⏸️ Stop</button>
+                    </div>
+                    <div class="breathing-stats">
+                        Dokončené cykly: <strong id="breathingCycles">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mood Meter -->
+            <div class="section-card">
+                <h3 class="section-heading">🌡️ Stupnice nálady - jak se dneská máš? </h3>
+                <p class="hint">Nastav jak se právě teď cítíš na škále od 1-10 </p>
+                <div class="mood-meter-container">
+                    <div class="mood-scale">
+                        <div class="mood-emoji">😢</div>
+                        <input type="range" id="moodSlider" min="1" max="10" value="5" class="mood-slider">
+                        <div class="mood-emoji">😊</div>
+                    </div>
+                    <div class="mood-value-display">
+                        <div class="mood-number" id="moodValue">5</div>
+                        <div class="mood-label" id="moodLabel">Neutrální</div>
+                    </div>
+                    <button id="saveMoodMeter" class="save-mood-btn">💾 Uložit náladu</button>
+                    <div class="mood-chart-description">
+                        <h4 style="margin-top: 2rem; margin-bottom: 0.5rem; color: #667eea; font-size: 1.1rem;">📊 Tvoje historie nálad</h4>
+                        <p style="opacity: 0.7; font-size: 0.9rem; margin-bottom: 1rem;">Graf ukazuje vývoj tvé nálady v čase. Sleduj svoje pokroky a vzory! 💙</p>
+                    </div>
+                    <canvas id="moodChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+        
+
+            <!-- Emergency Comfort Kit -->
+            <div class="section-card emergency-kit">
+                <h3 class="section-heading">🆘 Nouzovka - JE MI BLBĚ</h3>
+                <p class="hint">Když si lámeš hlavu a už cítíš, že to je nahovno..</p>
+                <button id="emergencyBtn" class="emergency-btn">
+                    🚨 POTŘEBUJI POMOC HNED
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Page - Poznámky -->
+    <section class="page notes-page" data-page="notes">
+        <div class="container">
+            <h2 class="page-title">📝 Poznámky a Deníček hihi </h2>
+            
+            <div class="section-card">
+                <h3 class="section-heading">✏️ Poznámky </h3>
+                <p class="hint">Tvoje poznámky se ukládají automaticky, vidíš je jen ty!</p>
+                <div class="notes-container">
+                    <div class="note-editor">
+                        <textarea id="quickNote" class="note-textarea" placeholder="Začni psát..."></textarea>
+                        <div class="note-actions">
+                            <button class="save-note-btn" id="saveQuickNote">💾 Uložit</button>
+                            <button class="clear-note-btn" id="clearQuickNote">🗑️ Smazat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3 class="section-heading">📚 Uložené Poznámky</h3>
+                <div id="savedNotes" class="saved-notes-list">
+                    <!-- Poznámky se budou přidávat dynamicky -->
+                    <p class="empty-state">Zatím žádné poznámky. Začni psát výše!</p>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3 class="section-heading">💭 Nálada Tracker</h3>
+                <p class="hint">Jak se dnes cítíš?</p>
+                <div class="mood-tracker">
+                    <button class="mood-btn" data-mood="úžasně">😊 Úžasně</button>
+                    <button class="mood-btn" data-mood="dobře">🙂 Dobře</button>
+                    <button class="mood-btn" data-mood="tak nějak">😐 Tak nějak</button>
+                    <button class="mood-btn" data-mood="smutně">😢 Smutně</button>
+                    <button class="mood-btn" data-mood="naštvaně">😠 Naštvaně</button>
+                </div>
+                <div id="moodHistory" class="mood-history">
+                    <!-- Historie nálad -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Board Page - Sdílená nástěnka -->
+    <section class="page board-page" data-page="board">
+        <div class="container">
+            <h2 class="page-title">📌 Naše Nástěnka</h2>
+            
+            <!-- Access Code Protection -->
+            <div class="access-gate" id="accessGate">
+                <div class="access-card">
+                    <div class="lock-icon">🔒</div>
+                    <h3>Soukromá nástěnka</h3>
+                    <p>Pouze pro nás dva ✨, kdyby náhodou někdo jiný našel tuto stránku...</p>
+                    <input type="password" id="accessCode" class="access-input" placeholder="Zadej přístupový kód">
+                    <button class="access-btn" id="unlockBtn">Odemknout</button>
+                    <p class="access-hint">Písnička, která je nejvíce spojená mezi námi dvěma..černobílý cover</p>
+                </div>
+            </div>
+
+            <!-- Main Board Content (Hidden until unlocked) -->
+            <div class="board-content hidden" id="boardContent">
+                
+                <!-- Textové vzkazy -->
+                <div class="section-card">
+                    <h3 class="section-heading">💌 Textové Vzkazy</h3>
+                    <p class="hint">Vzkazík</p>
+                    
+                    <div class="message-composer">
+                        <input type="text" id="authorName" class="author-input" placeholder="Tvoje jméno" maxlength="20">
+                        <textarea id="messageText" class="message-textarea" placeholder="Tvůj vzkaz..." rows="3" maxlength="300"></textarea>
+                        <div class="color-picker">
+                            <label>Barva lístku:</label>
+                            <button class="color-btn" data-color="pink" style="background: #ffd6e3;">💗</button>
+                            <button class="color-btn" data-color="blue" style="background: #d6e3ff;">💙</button>
+                            <button class="color-btn" data-color="yellow" style="background: #fff4d6;">💛</button>
+                            <button class="color-btn" data-color="green" style="background: #d6ffe3;">💚</button>
+                            <button class="color-btn" data-color="purple" style="background: #e3d6ff;">💜</button>
+                            <button class="color-btn" data-color="orange" style="background: #ffe3d6;">🧡</button>
+                            <button class="color-btn" data-color="mint" style="background: #d6fff4;">🩵</button>
+                            <button class="color-btn" data-color="peach" style="background: #ffebd6;">🍑</button>
+                            <button class="color-btn" data-color="lavender" style="background: #e8d6ff;">💟</button>
+                            <button class="color-btn" data-color="coral" style="background: #ffd6da;">🩷</button>
+                        </div>
+                        <button class="post-message-btn" id="postMessageBtn">📮 Poslat vzkaz</button>
+                    </div>
+                    
+                    <div class="messages-board" id="messagesBoard">
+                        <p class="empty-state">Zatím žádné vzkazy. 💌</p>
+                    </div>
+                </div>
+
+                <!-- Malůvky -->
+                <div class="section-card">
+                    <h3 class="section-heading">🎨 Sdílené Malůvky</h3>
+                    <p class="hint">Nakresli něco pěkného, uvidím to já a i ty kdykoliv si to tu otevřeš..JŮŮŮ</p>
+                    
+                    <div class="drawing-studio">
+                        <div class="canvas-container">
+                            <canvas id="drawingCanvas" width="800" height="500"></canvas>
+                        </div>
+                        
+                        <div class="drawing-tools">
+                            <div class="tool-group">
+                                <label>Barva:</label>
+                                <input type="color" id="brushColor" value="#667eea">
+                                <button class="preset-color" data-color="#000000" style="background: #000000;"></button>
+                                <button class="preset-color" data-color="#667eea" style="background: #667eea;"></button>
+                                <button class="preset-color" data-color="#f093fb" style="background: #f093fb;"></button>
+                                <button class="preset-color" data-color="#4facfe" style="background: #4facfe;"></button>
+                                <button class="preset-color" data-color="#fa709a" style="background: #fa709a;"></button>
+                                <button class="preset-color" data-color="#fee140" style="background: #fee140;"></button>
+                            </div>
+                            
+                            <div class="tool-group">
+                                <label>Velikost štětce:</label>
+                                <input type="range" id="brushSize" min="1" max="30" value="3">
+                                <span id="brushSizeDisplay">3px</span>
+                            </div>
+                            
+                            <div class="tool-group">
+                                <button class="tool-btn" id="eraserBtn">🧹 Guma</button>
+                                <button class="tool-btn" id="clearCanvasBtn">🗑️ Smazat vše</button>
+                            </div>
+                        </div>
+                        
+                        <div class="drawing-submit">
+                            <input type="text" id="drawingAuthor" class="author-input" placeholder="Tvoje jméno" maxlength="20">
+                            <button class="post-drawing-btn" id="postDrawingBtn">🖼️ Sdílet malůvku</button>
+                        </div>
+                    </div>
+                    
+                    <div class="drawings-gallery" id="drawingsGallery">
+                        <p class="empty-state">Zatím žádné malůvky. Buď první umělec! 🎨</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Buttons -->
+    <button class="floating-btn" id="floatingQuickAccess" title="Rychlý přístup">
+        🏠
+    </button>
+    
+    <button class="floating-color-btn" id="colorSchemeToggle" title="Změnit barevnou paletu">
+        🎨
+    </button>
+
+    <!-- Leaflet JS pro mapu -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="new-script.js"></script>
+</body>
+</html>
