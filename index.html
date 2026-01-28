@@ -2,826 +2,1224 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-    
-    <!-- iOS Specific Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Naše Svatyně">
-    <meta name="format-detection" content="telephone=no">
-    
-    <!-- Theme Color for Mobile Browsers -->
-    <meta name="theme-color" content="#ffeaa7">
-    <meta name="msapplication-TileColor" content="#ffeaa7">
-    
-    <title>Naše Svatyně ✨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zubní ordinace | MUDr. Eva Vyhnalová | Bzenec</title>
+    <meta name="description" content="Moderní zubní ordinace MUDr. Evy Vyhnalové ve Bzenci. Profesionální péče s moderním vybavením.">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Leaflet CSS pro mapu -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <!-- Soft particle background -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Main Header Navigation -->
-    <header class="main-header">
-        <div class="header-content">
-            <div class="logo" id="homeBtn">
-                <span class="logo-icon">🏠</span>
-                <span class="logo-text">Naše Svatyně</span>
+    <!-- progress bar nahoře :p -->
+    <div class="scroll-progress"></div>
+
+    <!-- darkmode -->
+    <button class="dark-mode-toggle" aria-label="Přepnout tmavý režim">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Zpět nahoru">
+        <span>Nahoru</span>
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- whatup -->
+    <a href="https://wa.me/420123456789" class="whatsapp-float" target="_blank" aria-label="Kontakt přes WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Hlava -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="logo">
+                        <i class="fas fa-tooth logo-icon"></i>
+                        <span>MUDr. Eva Vyhnalová</span>
+                    </div>
+                    <button class="mobile-menu-toggle" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li><a href="#home">Domů</a></li>
+                        <li><a href="#about">O ordinaci</a></li>
+                        <li><a href="#services">Služby</a></li>
+                        <li><a href="#booking">Objednat se</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                        <li><a href="#" class="login-trigger"><i class="fas fa-user-circle"></i> Můj účet</a></li>
+                    </ul>
+                </div>
             </div>
-            <nav class="header-nav">
-                <button class="nav-btn active" data-target="home">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-label">Domů</span>
-                </button>
-                <button class="nav-btn" data-target="comfort">
-                    <span class="nav-icon">💝</span>
-                    <span class="nav-label">Útěcha</span>
-                </button>
-                <button class="nav-btn" data-target="memories">
-                    <span class="nav-icon">✨</span>
-                    <span class="nav-label">Vzpomínky</span>
-                </button>
-                <button class="nav-btn" data-target="fun">
-                    <span class="nav-icon">🎮</span>
-                    <span class="nav-label">Zábava</span>
-                </button>
-                <button class="nav-btn" data-target="wellness">
-                    <span class="nav-icon">🧘</span>
-                    <span class="nav-label">Wellness</span>
-                </button>
-                <button class="nav-btn" data-target="notes">
-                    <span class="nav-icon">📝</span>
-                    <span class="nav-label">Poznámky</span>
-                </button>
-                <button class="nav-btn" data-target="board">
-                    <span class="nav-icon">📌</span>
-                    <span class="nav-label">Nástěnka</span>
-                </button>
-            </nav>
-            <button class="theme-toggle" id="themeToggle" title="Změnit téma">
-                <span class="theme-icon">🌙</span>
-            </button>
-        </div>
+        </nav>
     </header>
 
-    <!-- Homepage - Main Menu -->
-    <section class="page homepage active" data-page="home">
+    <!-- Oznámení -->
+    <div class="announcement-banner" id="announcementBanner">
         <div class="container">
-            <div class="welcome-section">
-                <h1 class="main-title">Burrito a Qurrito - Oázka klidu</h1>
-                <p class="main-subtitle">Vítej zpátky. Co dnes potřebuješ?</p>
-            </div>
-            
-            <div class="mood-cards">
-                <div class="mood-card" data-navigate="comfort">
-                    <div class="mood-icon">😢</div>
-                    <h3>Je mi smutno</h3>
-                    <p>¨Snaha o zlepšení nálady, povzbuzení..</p>
-                </div>
-                
-                <div class="mood-card" data-navigate="comfort">
-                    <div class="mood-icon">😠</div>
-                    <h3>Jsem naštvaná </h3>
-                    <p>Uklidnění, pochopení..</p>
-                </div>
-                
-                <div class="mood-card" data-navigate="memories">
-                    <div class="mood-icon">✨</div>
-                    <h3>MÁM NÁLADU NA VZPOMÍNKYY</h3>
-                    <p>Společné momentíky, mapka a počítadlo dnů</p>
-                </div>
-                
-                <div class="mood-card" data-navigate="fun">
-                    <div class="mood-icon">🎮</div>
-                    <h3>Chci si zahrát</h3>
-                    <p>Hry..buďto na relax nebo u nich chytneš rapla..</p>
-                </div>
-                
-                <div class="mood-card" data-navigate="notes">
-                    <div class="mood-icon">📝</div>
-                    <h3>Chci si něco zapsat</h3>
-                    <p>Soukromé poznámky, nálada, apod.</p>
-                </div>
-                
-                <div class="mood-card highlight" data-navigate="comfort">
-                    <div class="mood-icon">🌈</div>
-                    <h3>Jen tak navštívit</h3>
-                    <p>Prozkoumat všechny sekce</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Comfort Page - Pro útěchu -->
-    <section class="page comfort-page" data-page="comfort">
-        <div class="container">
-            <h2 class="page-title">💝 Zlepšení náladindy</h2>
-            
-            <!-- Generátor Komplimentů -->
-            <div class="section-card">
-                <h3 class="section-heading">✨ Generátor komplimentů</h3>
-                <div class="compliment-display" id="complimentDisplay">
-                    <p class="compliment-text">Zmáčkni tlačítko pro pravdivý kompliment! 💫</p>
-                </div>
-                <button class="compliment-btn" id="generateCompliment">
-                    <span class="btn-icon">✨</span>
-                    Další kompliment
-                    <span class="btn-icon">✨</span>
-                </button>
-                <div class="compliment-counter">
-                    Vygenerováno: <span id="complimentCount">0</span> komplimentů
-                </div>
-            </div>
-
-            <!-- Důvody proč jsi úžasná -->
-            <div class="section-card">
-                <h3 class="section-heading">🌟 Důvody, proč tě obdivuju</h3>
-                <div class="reasons-grid">
-                    <div class="reason-card">
-                        <div class="card-icon">🌟</div>
-                        <h4>Tvá vytrvalost</h4>
-                        <p>Rady, na světě není tolik lidí, kteří si dokážou jít za svým cílem jako ty. Něco si stanovíš a dojdeš k tomu, ať to stojí co to stojí – ani nevíš, jak moc si toto u člověka cením.</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="card-icon">✨</div>
-                        <h4>Tvůj Humor</h4>
-                        <p>Fr oba dva se shodneme na tom, že ho máme úplně dokonale stejný, je to nejpěknější humor vůbec a kombinuj to s možností se i tak bavit deeply apod..to je recept na DOKONALOU ;iózu, ne snad?</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="card-icon">🎨</div>
-                        <h4>Tvá Kreativita</h4>
-                        <p>Uplatňuje se v mnoha místech..outfity, vaření, nápady a vtípky. Dokážeš vymyslet kde co a říkej si co chceš, většinou je to absolutní peakčovina..</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="card-icon">💫</div>
-                        <h4>Tvá Energie</h4>
-                        <p>Přes to vše, co ti život nachystal a s čím se vyrovnáváš nepřestáváš být pozitivní, i kdyby jen na oko, dokážeš lidi rozesmát a nerozséváš svou špatnou náladu na ostatní..</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="card-icon">🌈</div>
-                        <h4>Tvá Upřímnost</h4>
-                        <p>Dokážeš říct co si opravdu myslíš, ať už to zaškatulkuješ, nebo řekneš narovinu tvrdě, člověk to pochopí a měl by si cenit, že jsi mu to řekla.</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="card-icon">⭐</div>
-                        <h4>A mnoho dalšího...</h4>
-                        <p>Komplexní člověk jako ty má mnoho naprosto  vlastností, ale všechny je tu vypsat nemůžu, avšak často ti je opakuju a myslím, že nějaký přehled máš..někde bude možná i soupis..hmm</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Citáty & Myšlenky -->
-            <div class="section-card">
-                <h3 class="section-heading">💭 Moudra od Jirky</h3>
-                <div class="quotes-container">
-                    <div class="quote-card active">
-                        <div class="quote-mark">"</div>
-                        <p class="quote-text">Skibidi toaleta se nezajímá o názor podřadné bety</p>
-                        <div class="quote-author">- O tobě - jsi toaleta</div>
-                    </div>
-                    <div class="quote-card">
-                        <div class="quote-mark">"</div>
-                        <p class="quote-text">We accept the love we think we deserve - ty si zasloužíš svět</p>
-                        <div class="quote-author">- O lásce</div>
-                    </div>
-                    <div class="quote-card">
-                        <div class="quote-mark">"</div>
-                        <p class="quote-text">Ke štěstí stačí málo - věrný kamarád, dva panáky a půllitr piva</p>
-                        <div class="quote-author">- O štěstí P.S pozvi mě dík</div>
-                    </div>
-                    <div class="quote-card">
-                        <div class="quote-mark">"</div>
-                        <p class="quote-text">Jídlo řeší veškeré problémy..ham ham</p>
-                        <div class="quote-author">- O tom jak zlý je hlad</div>
-                    </div>
-                </div>
-                <div class="quote-controls">
-                    <button class="quote-btn" id="prevQuote">←</button>
-                    <div class="quote-indicators">
-                        <span class="quote-dot active"></span>
-                        <span class="quote-dot"></span>
-                        <span class="quote-dot"></span>
-                        <span class="quote-dot"></span>
-                    </div>
-                    <button class="quote-btn" id="nextQuote">→</button>
-                </div>
-            </div>
-
-            <!-- Otevři Později -->
-            <div class="section-card">
-                <h3 class="section-heading">📬 Otevři Později</h3>
-                <p class="hint">Každá obálka obsahuje zprávu pro speciální moment...</p>
-                <div class="letters-grid">
-                    <div class="letter-envelope" data-letter="1">
-                        <div class="envelope-front">
-                            <div class="envelope-flap"></div>
-                            <div class="envelope-label">Když máš<br>den blbec</div>
-                        </div>
-                        <div class="letter-content">
-                            <div class="letter-text">Tohle ještě dodělám bobe, musím to sepsat</div>
-                            <button class="close-letter">Zavřít</button>
-                        </div>
-                    </div>
-                    <div class="letter-envelope" data-letter="2">
-                        <div class="envelope-front">
-                            <div class="envelope-flap"></div>
-                            <div class="envelope-label">Když ti<br>chybím</div>
-                        </div>
-                        <div class="letter-content">
-                            <div class="letter-text">Tohle ještě dodělám bobe, musím to sepsat</div>
-                            <button class="close-letter">Zavřít</button>
-                        </div>
-                    </div>
-                    <div class="letter-envelope" data-letter="3">
-                        <div class="envelope-front">
-                            <div class="envelope-flap"></div>
-                            <div class="envelope-label">Když se<br>nudíš</div>
-                        </div>
-                        <div class="letter-content">
-                            <div class="letter-text">ZAVOLEJ, NAPIŠ, COKOLIV, a jdeme hrát ROBLOX nebo cokoliv jiného!</div>
-                            <button class="close-letter">Zavřít</button>
-                        </div>
-                    </div>
-                    <div class="letter-envelope" data-letter="4">
-                        <div class="envelope-front">
-                            <div class="envelope-flap"></div>
-                            <div class="envelope-label">Když tě<br>něco bolí</div>
-                        </div>
-                        <div class="letter-content">
-                            <div class="letter-text">Tohle ještě dodělám bobe, musím to sepsat</div>
-                            <button class="close-letter">Zavřít</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Memories Page - Vzpomínky -->
-    <section class="page memories-page" data-page="memories">
-        <div class="container">
-            <h2 class="page-title">✨ Vzpomínky & Společné Chvíle</h2>
-            
-            <!-- Interaktivní Vzpomínky -->
-            <div class="section-card">
-                <h3 class="section-heading">💫 Naše Vzpomínky</h3>
-                <p class="hint">Klikej na kartičky pro odhalení vzpomínek</p>
-                <div class="memory-wall">
-                    <div class="memory-item">
-                        <div class="memory-content">
-                            <span class="memory-date">📅 13.11.2024</span>
-                            <p>V tento den jsme spolu hráli Roblox - hotel a vyfotila ses s Mr. Kebab</p>
-                        </div>
-                    </div>
-                    <div class="memory-item">
-                        <div class="memory-content">
-                            <span class="memory-date">📅 16.11.2024</span>
-                            <p>BRNOO - VIDA! Centrum, Vaňkovka, Freakman, Špilberk, ... </p>
-                        </div>
-                    </div>
-                    <div class="memory-item">
-                        <div class="memory-content">
-                            <span class="memory-date">📅 29.11.2024</span>
-                            <p>Stužkáčč - to bylo pěknýýýý, kytičkaaa a vycházka</p>
-                        </div>
-                    </div>
-                    <div class="memory-item">
-                        <div class="memory-content">
-                            <span class="memory-date">📅 23.7.2025</span>
-                            <p>Tady někdo breaknul no contaaact ❤️</p>
-                        </div>
-                    </div>
-                    <div class="memory-item">
-                        <div class="memory-content">
-                            <span class="memory-date">📅 4.10.2025</span>
-                            <p>Vídeeeeň, Jadanka a Jižík si dali mekáčeeek, prošli památky a navázali zajímavý oční kontakt v metru</p>
-                        </div>
-                    </div>
-                    <div class="memory-item">
-                        <div class="memory-content">
-                            <span class="memory-date">📅 21.11.2025</span>
-                            <p>Prahaaaa, hrozna kosa, krasné městečko a ten Karlův most byl fakt krutopřísný, tu fotku z něj mám doteď na tapetěě</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Počítadlo -->
-            <div class="section-card">
-                <h3 class="section-heading">⏱️ Od našeho prvního velkého bavení u táboraku</h3>
-                <div class="counter-intro">
-                    <p>5. září 2024 - To je doba, viď? ✨</p>
-                </div>
-                <div class="counter-display" id="counterDisplay">
-                    <div class="counter-item">
-                        <div class="counter-number" id="days">0</div>
-                        <div class="counter-label">dní</div>
-                    </div>
-                    <div class="counter-item">
-                        <div class="counter-number" id="hours">0</div>
-                        <div class="counter-label">hodin</div>
-                    </div>
-                    <div class="counter-item">
-                        <div class="counter-number" id="minutes">0</div>
-                        <div class="counter-label">minut</div>
-                    </div>
-                    <div class="counter-item">
-                        <div class="counter-number" id="seconds">0</div>
-                        <div class="counter-label">sekund</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mapa Našich Míst -->
-            <div class="section-card">
-                <h3 class="section-heading">🗺️ Mapa Našich Míst</h3>
-                <p class="hint">Místa, kde jsme byli spoluuu ✨</p>
-                
-                <!-- Interaktivní mapa -->
-                <div id="realMap" class="real-map-container"></div>
-                
-                <div class="places-filters">
-                    <button class="filter-btn active" data-filter="all">🌍 Všechna</button>
-                    <button class="filter-btn" data-filter="restaurant">🍕 Restaurace</button>
-                    <button class="filter-btn" data-filter="cinema">🎬 Kina</button>
-                    <button class="filter-btn" data-filter="park">🌳 Parky</button>
-                    <button class="filter-btn" data-filter="other">⭐ Ostatní</button>
-                </div>
-                
-                <div class="places-list" id="placesList">
-                    <div class="place-item" data-category="restaurant">
-                        <div class="place-icon">🍕</div>
-                        <div class="place-details">
-                            <h4 class="place-name">McDonald's</h4>
-                                <p class="place-description">Mekáček nikdy nezklamal, vždy naprosto úžasný, ať už sýrovka v Praze, cheeseburgery v UHu, nebo klasika v Brně s čajem za 40,-</p>
-                                <div class="place-meta">
-                                <span class="place-date">📅 HROZNĚ MOCKRÁT</span>
-                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="place-item" data-category="cinema">
-                        <div class="place-icon">🎬</div>
-                        <div class="place-details">
-                            <h4 class="place-name">Kino Hodonín</h4>
-                            <p class="place-description">Ukradené Vánoce...MEGA dobrý film prostě od Burtona, díkybohu, že tě tam přešla ta bolest břichaa, ale pak se nešťastně vrátila, no ale zvládli jsme to domů oba krásně..</p>
-                            <div class="place-meta">
-                                <span class="place-date">📅 Vánoce 2024</span>
-                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="place-item" data-category="park">
-                        <div class="place-icon">🌳</div>
-                        <div class="place-details">
-                            <h4 class="place-name">Park v Brně</h4>
-                            <p class="place-description">Jůůů...parky. Prostě to nejlepší místo na deeptalky, posezení a odpočinek. Pamatuju si první i poslední park, vždycky to tam bylo krásný a vždycky bude, pak jsme hledali kočičí kavárnu a já záchody..vopa</p>
-                            <div class="place-meta">
-                                <span class="place-date">📅 DVAKRÁT - 2024 a 2025</span>
-                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-
-                     <div class="place-item" data-category="park">
-                        <div class="place-icon">🌳</div>
-                        <div class="place-details">
-                            <h4 class="place-name">Vídeňský park</h4>
-                            <p class="place-description">AAAAA, tam to bylo úžasnýýý...schnitzel a prdící vlak, na to vzpomínám pěkně, sice ten déšť si Vídeň mohla odpustit, ale tak co už. Bylo mi s tebou dobře Radankoo..moc.</p>
-                            <div class="place-meta">
-                                <span class="place-date">📅 4.10.2025</span>
-                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="place-item" data-category="other">
-                        <div class="place-icon">🎮</div>
-                        <div class="place-details">
-                            <h4 class="place-name">Domeček v Bukovanech</h4>
-                            <p class="place-description">Pařící doupě pro GTA 5 a SIMS 4, domov Jižíka, byly tu krásné sleepovery i hang outy a filmů jsme tu zhlédli fr mega moc, když je spočítáš celkově.</p>
-                            <div class="place-meta">
-                                <span class="place-date">📅 Mnohokráát</span>
-                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="place-item" data-category="restaurant">
-                        <div class="place-icon">🍔</div>
-                        <div class="place-details">
-                            <h4 class="place-name">Fast Food</h4>
-                            <p class="place-description">Bohužel, restaurace jsou přecijen velice drahé, takže okupujeme fast foody - ať už KFC v Praze, nebo UGO Salaterie v Brně poprvé, máme to rádi, chutná nám to..tak proč ne viď? Pamatuju si, jak jsem jedl v UGU a tys tam spala..hihi</p>
-                            <div class="place-meta">
-                                <span class="place-date">📅 KAŽDÝ HANGOUT</span>
-                                <span class="place-rating">⭐⭐⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="place-item" data-category="other">
-                        <div class="place-icon">🎉</div>
-                        <div class="place-details">
-                            <h4 class="place-name">Domeček ve Vracově</h4>
-                            <p class="place-description">Juuuuuu, tady bydlí FIFINCIII, domov Jadanky, vaří se tu minimálně podle vzhledu asi lépe než u nás..díky jedné určité šéfkuchařce, hang outy tu byly taky mega pěknééé, furt si pamatuju jak jsi mi trhala obočí ach..TĚŠÍM SE NA NAFUKOVAČKU hiih</p>
-                            <div class="place-meta">
-                                <span class="place-date">📅 2024&2025</span>
-                                <span class="place-rating">⭐⭐⭐⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="places-stats">
-                    <div class="stat-item">
-                        <div class="stat-number" id="totalPlaces">6</div>
-                        <div class="stat-label">Celkem míst</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="favoriteCategory">🍕</div>
-                        <div class="stat-label">Oblíbená kategorie</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Fun Page - Zábava -->
-    <section class="page fun-page" data-page="fun">
-        <div class="container">
-            <h2 class="page-title">🎮 Hry</h2>
-            
-            <!-- Mini Hry Menu -->
-            <div class="section-card">
-                <h3 class="section-heading">🕹️ Hry</h3>
-                <p class="hint">Vyber si hru pro zábavu a relaxaci</p>
-                <div class="games-menu">
-                    <button class="game-card" data-game="memory">
-                        <div class="game-icon">🃏</div>
-                        <h4>Paměťová hra</h4>
-                        <p>Najdi všechny páry karet</p>
-                    </button>
-                    <button class="game-card" data-game="bubbles">
-                        <div class="game-icon">🫧</div>
-                        <h4>Praskej bubliny</h4>
-                        <p>Praskej bublinky pro relax</p>
-                    </button>
-                    <button class="game-card" data-game="colors">
-                        <div class="game-icon">🌈</div>
-                        <h4>Spoj barvy</h4>
-                        <p>Spoj stejné barvy</p>
-                    </button>
-                    <button class="game-card" data-game="stars">
-                        <div class="game-icon">⭐</div>
-                        <h4>Chytej hvězdičky</h4>
-                        <p>Chytej padající hvězdičky</p>
-                    </button>
-                    <button class="game-card" data-game="affirmation">
-                        <div class="game-icon">💫</div>
-                        <h4>Déšť brain rotu</h4>
-                        <p>Chytej brain rot</p>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Memory Game -->
-            <div id="memoryGame" class="game-container hidden">
-                <div class="game-header">
-                    <h3>🃏 Paměťová hra - Pexeso</h3>
-                    <button class="close-game-btn">✖ Zavřít</button>
-                </div>
-                <div class="game-stats">
-                    <span>Tahy: <strong id="memoryMoves">0</strong></span>
-                    <span>Čas: <strong id="memoryTime">0:00</strong></span>
-                    <button id="memoryRestart">🔄 Nová hra</button>
-                </div>
-                <div id="memoryBoard" class="memory-board"></div>
-            </div>
-
-            <!-- Bubble Pop -->
-            <div id="bubblesGame" class="game-container hidden">
-                <div class="game-header">
-                    <h3>🫧 Praskej bubliny - Miluju praskání bublinek</h3>
-                    <button class="close-game-btn">✖ Zavřít</button>
-                </div>
-                <div class="game-stats">
-                    <span>Skóre: <strong id="bubbleScore">0</strong></span>
-                    <span>Rekord: <strong id="bubbleRecord">0</strong></span>
-                </div>
-                <div id="bubblesContainer" class="bubbles-container"></div>
-            </div>
-
-            <!-- Color Match -->
-            <div id="colorsGame" class="game-container hidden">
-                <div class="game-header">
-                    <h3>🌈 Spoj barvy - Velmi těžká hra ach </h3>
-                    <button class="close-game-btn">✖ Zavřít</button>
-                </div>
-                <div class="game-stats">
-                    <span>Úroveň: <strong id="colorLevel">1</strong></span>
-                    <span>Tahy: <strong id="colorMoves">0</strong></span>
-                </div>
-                <div id="colorGrid" class="color-grid"></div>
-            </div>
-
-            <!-- Star Collector -->
-            <div id="starsGame" class="game-container hidden">
-                <div class="game-header">
-                    <h3>⭐ Chytej hvězdičky - Chytej hvězdičky</h3>
-                    <button class="close-game-btn">✖ Zavřít</button>
-                </div>
-                <div class="game-stats">
-                    <span>Hvězdičky: <strong id="starsCollected">0</strong></span>
-                    <span>Životy: <strong id="starsLives">❤️❤️❤️</strong></span>
-                    <span>Rychlost: <strong id="starsSpeed">1.0x</strong></span>
-                </div>
-                <canvas id="starsCanvas" width="600" height="400"></canvas>
-                <div class="leaderboard">
-                    <h4>🏆 Top 5 Skóre</h4>
-                    <div id="starsLeaderboard" class="leaderboard-list">Načítání...</div>
-                </div>
-            </div>
-
-            <!-- Affirmation Rain -->
-            <div id="affirmationGame" class="game-container hidden">
-                <div class="game-header">
-                    <h3>💫 Déšť brain rotu - Chytej brain rot</h3>
-                    <button class="close-game-btn">✖ Zavřít</button>
-                </div>
-                <div class="game-stats">
-                    <span>Brain Rot: <strong id="affirmationCount">0</strong></span>
-                    <span>Životy: <strong id="affirmationLives">💛💛💛💛💛</strong></span>
-                    <span>Boost: <strong id="affirmationBoost">+0%</strong></span>
-                    <span>Rychlost: <strong id="affirmationSpeed">1.0x</strong></span>
-                </div>
-                <canvas id="affirmationCanvas" width="600" height="400"></canvas>
-                <div class="leaderboard">
-                    <h4>🏆 Top 5 Skóre</h4>
-                    <div id="affirmationLeaderboard" class="leaderboard-list">Načítání...</div>
-                </div>
-            </div>
-            
-            <!-- Tajná Zpráva -->
-            <div class="section-card">
-                <h3 class="section-heading">🔐 Tajná Zpráva</h3>
-                <div class="puzzle-container" id="puzzleContainer">
-                    <p class="puzzle-hint">Když toto uhodneš..dostaneš tajnou zprávičku
-                    <div class="puzzle-grid" id="puzzleGrid"></div>
-                    <div class="puzzle-question">
-                        <p><strong>Hádanka:</strong></p>
-                        <p id="riddleText">Víš co dělá řezník, když slyší vtip?</p>
-                        <input type="text" id="riddleAnswer" class="riddle-input" placeholder="Tvoje odpověď...">
-                        <button id="checkAnswer" class="check-btn">Zkontrolovat</button>
-                    </div>
-                </div>
-                <div class="secret-message hidden" id="secretMessage">
-                    <div class="secret-content">
-                        <div class="unlock-animation">🔓</div>
-                        <h3>Hezky pěkně, ten horor s tebou pohl viď?!</h3>
-                        <p class="secret-text">Bobe..chtěl bych ti říct, že pro mě neskutečně znamenáš. Jsem neskutečně vděčný a navždy budu, že jsem našel takovou úžasnou osůbku jako jsi ty, Rady. Napsal bych ti klidně slohovku o tom, jak moc tě mám rád a co pro mě znamenáš..ale to na stránku nahraju někdy jindy jo? xoxo Jirka ❤️</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Wellness Page - Duševní pohoda -->
-    <section class="page wellness-page" data-page="wellness">
-        <div class="container">
-            <h2 class="page-title">🧘 Wellness & Relaxandaa</h2>
-            
-            <!-- Virtuální Objetí -->
-            <div class="section-card">
-                <h3 class="section-heading"> Sending virtual hugs haha </h3>
-                <p class="hint">Pokud potřebuješ obejmout...je to jen cool funkce, ale jinak je to asi cringe já vím :D</p>
-                <div class="hug-center">
-                    <button id="hugBtn" class="hug-btn">
-                        <span class="hug-icon">🤗</span>
-                        <span>Chci obejmout</span>
-                    </button>
-                    <div class="hug-counter">
-                        Rozdaných objetít: <strong id="hugCount">0</strong> ❤️
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dýchací Cvičení -->
-            <div class="section-card">
-                <h3 class="section-heading">💨 Dýchací Cvičení</h3>
-                <p class="hint">4 sekundy vdech • 4 sekundy zadrž • 4 sekundy výdech, mega COOL co?!</p>
-                <div class="breathing-container">
-                    <div id="breathingCircle" class="breathing-circle">
-                        <div class="breathing-text" id="breathingText">Začni dýchat</div>
-                    </div>
-                    <div class="breathing-controls">
-                        <button id="startBreathing" class="breathing-btn">▶️ Start</button>
-                        <button id="stopBreathing" class="breathing-btn">⏸️ Stop</button>
-                    </div>
-                    <div class="breathing-stats">
-                        Dokončené cykly: <strong id="breathingCycles">0</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mood Meter -->
-            <div class="section-card">
-                <h3 class="section-heading">🌡️ Stupnice nálady - jak se dneská máš? </h3>
-                <p class="hint">Nastav jak se právě teď cítíš na škále od 1-10 </p>
-                <div class="mood-meter-container">
-                    <div class="mood-scale">
-                        <div class="mood-emoji">😢</div>
-                        <input type="range" id="moodSlider" min="1" max="10" value="5" class="mood-slider">
-                        <div class="mood-emoji">😊</div>
-                    </div>
-                    <div class="mood-value-display">
-                        <div class="mood-number" id="moodValue">5</div>
-                        <div class="mood-label" id="moodLabel">Neutrální</div>
-                    </div>
-                    <button id="saveMoodMeter" class="save-mood-btn">💾 Uložit náladu</button>
-                    <div class="mood-chart-description">
-                        <h4 style="margin-top: 2rem; margin-bottom: 0.5rem; color: #667eea; font-size: 1.1rem;">📊 Tvoje historie nálad</h4>
-                        <p style="opacity: 0.7; font-size: 0.9rem; margin-bottom: 1rem;">Graf ukazuje vývoj tvé nálady v čase. Sleduj svoje pokroky a vzory! 💙</p>
-                    </div>
-                    <canvas id="moodChart" width="400" height="200"></canvas>
-                </div>
-            </div>
-
-        
-
-            <!-- Emergency Comfort Kit -->
-            <div class="section-card emergency-kit">
-                <h3 class="section-heading">🆘 Nouzovka - JE MI BLBĚ</h3>
-                <p class="hint">Když si lámeš hlavu a už cítíš, že to je nahovno..</p>
-                <button id="emergencyBtn" class="emergency-btn">
-                    🚨 POTŘEBUJI POMOC HNED
+            <div class="announcement-content">
+                <i class="fas fa-info-circle announcement-icon"></i>
+                <p class="announcement-text" id="announcementText">
+                    <strong>Důležité oznámení:</strong> V termínu 15.-20. února bude ordinace uzavřena z důvodu dovolené. 
+                    Děkujeme za pochopení.
+                </p>
+                <button class="announcement-close" aria-label="Zavřít oznámení">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Notes Page - Poznámky -->
-    <section class="page notes-page" data-page="notes">
-        <div class="container">
-            <h2 class="page-title">📝 Poznámky a Deníček hihi </h2>
+    <!-- Tlačítko pro znovuotevření oznámení -->
+    <button class="announcement-reopen" id="announcementReopen" style="display: none;" aria-label="Zobrazit oznámení">
+        <i class="fas fa-bell"></i>
+    </button>
+
+    <!-- Plovoucí admin tlačítko -->
+    <button class="admin-float-btn" id="editAnnouncement" aria-label="Admin panel">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel-modal" id="adminPanel">
+        <div class="admin-panel-content">
+            <div class="admin-panel-header">
+                <h3><i class="fas fa-shield-alt"></i> Admin Panel</h3>
+                <button class="admin-close" id="closeAdminPanel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             
-            <div class="section-card">
-                <h3 class="section-heading">✏️ Poznámky </h3>
-                <p class="hint">Tvoje poznámky se ukládají automaticky, vidíš je jen ty!</p>
-                <div class="notes-container">
-                    <div class="note-editor">
-                        <textarea id="quickNote" class="note-textarea" placeholder="Začni psát..."></textarea>
-                        <div class="note-actions">
-                            <button class="save-note-btn" id="saveQuickNote">💾 Uložit</button>
-                            <button class="clear-note-btn" id="clearQuickNote">🗑️ Smazat</button>
+            <!-- Přihlášení -->
+            <div class="admin-login" id="adminLoginForm">
+                <h4>Přihlášení</h4>
+                <div class="form-group">
+                    <label>Heslo:</label>
+                    <input type="password" id="adminPassword" placeholder="Zadejte admin heslo">
+                </div>
+                <button class="btn btn-primary" id="adminLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Přihlásit se
+                </button>
+                <p class="admin-hint">Výchozí heslo: admin123</p>
+            </div>
+
+            <!-- Editor oznámení -->
+            <div class="admin-editor" id="adminEditor" style="display: none;">
+                <!-- Záložky -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="announcement">
+                        <i class="fas fa-bullhorn"></i> Oznámení
+                    </button>
+                    <button class="admin-tab" data-tab="contacts">
+                        <i class="fas fa-address-book"></i> Kontakty
+                    </button>
+                    <button class="admin-tab" data-tab="appointments">
+                        <i class="fas fa-calendar-alt"></i> Termíny
+                    </button>
+                    <button class="admin-tab" data-tab="reminders">
+                        <i class="fas fa-bell"></i> Připomínky
+                    </button>
+                </div>
+
+                <!-- Záložka: Oznámení -->
+                <div class="admin-tab-content active" id="tabAnnouncement">
+                    <h4>Upravit oznámení</h4>
+                    <div class="form-group">
+                        <label>Text oznámení:</label>
+                        <textarea id="adminAnnouncementText" rows="4" placeholder="Zadejte text oznámení..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="announcementActive"> Zobrazit oznámení na webu
+                        </label>
+                    </div>
+                    <button class="btn btn-primary" id="saveAnnouncement">
+                        <i class="fas fa-save"></i> Uložit oznámení
+                    </button>
+                </div>
+
+                <!-- Záložka: Kontakty -->
+                <div class="admin-tab-content" id="tabContacts">
+                    <h4>Kontaktní údaje</h4>
+                    <div class="form-group">
+                        <label>Telefon:</label>
+                        <input type="tel" id="adminPhone" placeholder="+420 123 456 789">
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="adminEmail" placeholder="ordinace@vyhnalova.cz">
+                    </div>
+                    <div class="form-group">
+                        <label>Adresa:</label>
+                        <input type="text" id="adminAddress" placeholder="Náměstí Svobody 123">
+                    </div>
+                    <div class="form-group">
+                        <label>PSČ a Město:</label>
+                        <input type="text" id="adminCity" placeholder="696 81 Bzenec">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp číslo:</label>
+                        <input type="tel" id="adminWhatsapp" placeholder="420123456789">
+                    </div>
+                    <button class="btn btn-primary" id="saveContacts">
+                        <i class="fas fa-save"></i> Uložit kontakty
+                    </button>
+                </div>
+
+                <!-- Záložka: Termíny pacientů -->
+                <div class="admin-tab-content" id="tabAppointments">
+                    <h4>Správa termínů pacientů</h4>
+                    
+                    <div class="add-appointment-form">
+                        <h5><i class="fas fa-plus-circle"></i> Přidat nový termín</h5>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email pacienta:</label>
+                                <input type="email" id="appointmentEmail" placeholder="pacient@email.cz">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon pacienta:</label>
+                                <input type="tel" id="appointmentPhone" placeholder="+420 123 456 789">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Datum návštěvy:</label>
+                                <input type="date" id="appointmentDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Čas návštěvy:</label>
+                                <input type="time" id="appointmentTime" value="10:00">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Typ ošetření:</label>
+                            <input type="text" id="appointmentType" placeholder="Preventivní kontrola">
+                        </div>
+                        <button class="btn btn-primary" id="addAppointment">
+                            <i class="fas fa-calendar-plus"></i> Přidat termín
+                        </button>
+                    </div>
+
+                    <div class="appointments-list-admin">
+                        <h5><i class="fas fa-list"></i> Nadcházející termíny</h5>
+                        <div id="adminAppointmentsList"></div>
+                    </div>
+
+                    <div class="send-reminders-section">
+                        <h5><i class="fas fa-paper-plane"></i> Test připomínek</h5>
+                        <p>Odešle připomínky všem pacientům, kteří mají termín během následujících 3 dnů.</p>
+                        <button class="btn btn-primary" id="sendRemindersNow">
+                            <i class="fas fa-bell"></i> Odeslat připomínky teď
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Záložka: Připomínky -->
+                <div class="admin-tab-content" id="tabReminders">
+                    <h4>Nastavení připomínek</h4>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="remindersEnabled"> Aktivovat automatické připomínky
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Kdy poslat připomínku:</label>
+                        <select id="reminderTiming">
+                            <option value="24">24 hodin před návštěvou</option>
+                            <option value="48">2 dny před návštěvou</option>
+                            <option value="72">3 dny před návštěvou</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Text SMS připomínky:</label>
+                        <textarea id="reminderSmsText" rows="3" placeholder="Dobrý den, připomínáme Vaši návštěvu zítra v 10:00. MUDr. Vyhnalová"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Text emailové připomínky:</label>
+                        <textarea id="reminderEmailText" rows="4" placeholder="Vážený pane/paní,&#10;připomínáme Vám objednanou návštěvu zubní ordinace..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="saveReminders">
+                        <i class="fas fa-save"></i> Uložit nastavení
+                    </button>
+                    
+                    <div class="reminder-preview">
+                        <h5><i class="fas fa-eye"></i> Ukázka připomínky</h5>
+                        <div class="preview-box">
+                            <strong>SMS:</strong>
+                            <p id="smsPreview">Dobrý den, připomínáme Vaši návštěvu zítra v 10:00. MUDr. Vyhnalová</p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="section-card">
-                <h3 class="section-heading">📚 Uložené Poznámky</h3>
-                <div id="savedNotes" class="saved-notes-list">
-                    <!-- Poznámky se budou přidávat dynamicky -->
-                    <p class="empty-state">Zatím žádné poznámky. Začni psát výše!</p>
+                <!-- Akce pro celý panel -->
+                <div class="admin-actions" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                    <button class="btn btn-secondary" id="adminLogout">
+                        <i class="fas fa-sign-out-alt"></i> Odhlásit se
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="section-card">
-                <h3 class="section-heading">💭 Nálada Tracker</h3>
-                <p class="hint">Jak se dnes cítíš?</p>
-                <div class="mood-tracker">
-                    <button class="mood-btn" data-mood="úžasně">😊 Úžasně</button>
-                    <button class="mood-btn" data-mood="dobře">🙂 Dobře</button>
-                    <button class="mood-btn" data-mood="tak nějak">😐 Tak nějak</button>
-                    <button class="mood-btn" data-mood="smutně">😢 Smutně</button>
-                    <button class="mood-btn" data-mood="naštvaně">😠 Naštvaně</button>
+    <!-- hero.lib -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Vaše rodinná zubařka ve Bzenci</h1>
+                <p class="hero-subtitle">S láskou a péčí o úsměvy celé vaší rodiny – od prvního zoubku až po důchodový věk</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Objednat se</a>
+                    <a href="#services" class="btn btn-secondary">Naše služby</a>
                 </div>
-                <div id="moodHistory" class="mood-history">
-                    <!-- Historie nálad -->
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 46.7C1200 53 1320 67 1380 73.3L1440 80V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V0Z" fill="white"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Statistická sekce -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-baby"></i>
+                    <div class="stat-number" data-target="0">0</div>
+                    <div class="stat-label">Od prvního zoubku</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number" data-target="3">0</div>
+                    <div class="stat-label">Generace rodin</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-heart"></i>
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Let s vámi</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-home"></i>
+                    <div class="stat-number" data-target="1">0</div>
+                    <div class="stat-label">Rodinná atmosféra</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Board Page - Sdílená nástěnka -->
-    <section class="page board-page" data-page="board">
+    <!-- porovnávání -->
+    <section class="before-after-section">
         <div class="container">
-            <h2 class="page-title">📌 Naše Nástěnka</h2>
-            
-            <!-- Access Code Protection -->
-            <div class="access-gate" id="accessGate">
-                <div class="access-card">
-                    <div class="lock-icon">🔒</div>
-                    <h3>Soukromá nástěnka</h3>
-                    <p>Pouze pro nás dva ✨, kdyby náhodou někdo jiný našel tuto stránku...</p>
-                    <input type="password" id="accessCode" class="access-input" placeholder="Zadej přístupový kód">
-                    <button class="access-btn" id="unlockBtn">Odemknout</button>
-                    <p class="access-hint">Písnička, která je nejvíce spojená mezi námi dvěma..černobílý cover</p>
-                </div>
+            <div class="section-header">
+                <h2>Skutečné výsledky skutečných lidí</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Každý úsměv má svůj příběh</p>
             </div>
-
-            <!-- Main Board Content (Hidden until unlocked) -->
-            <div class="board-content hidden" id="boardContent">
-                
-                <!-- Textové vzkazy -->
-                <div class="section-card">
-                    <h3 class="section-heading">💌 Textové Vzkazy</h3>
-                    <p class="hint">Vzkazík</p>
-                    
-                    <div class="message-composer">
-                        <input type="text" id="authorName" class="author-input" placeholder="Tvoje jméno" maxlength="20">
-                        <textarea id="messageText" class="message-textarea" placeholder="Tvůj vzkaz..." rows="3" maxlength="300"></textarea>
-                        <div class="color-picker">
-                            <label>Barva lístku:</label>
-                            <button class="color-btn" data-color="pink" style="background: #ffd6e3;">💗</button>
-                            <button class="color-btn" data-color="blue" style="background: #d6e3ff;">💙</button>
-                            <button class="color-btn" data-color="yellow" style="background: #fff4d6;">💛</button>
-                            <button class="color-btn" data-color="green" style="background: #d6ffe3;">💚</button>
-                            <button class="color-btn" data-color="purple" style="background: #e3d6ff;">💜</button>
-                            <button class="color-btn" data-color="orange" style="background: #ffe3d6;">🧡</button>
-                            <button class="color-btn" data-color="mint" style="background: #d6fff4;">🩵</button>
-                            <button class="color-btn" data-color="peach" style="background: #ffebd6;">🍑</button>
-                            <button class="color-btn" data-color="lavender" style="background: #e8d6ff;">💟</button>
-                            <button class="color-btn" data-color="coral" style="background: #ffd6da;">🩷</button>
+            <div class="before-after-container">
+                <div class="comparison-slider">
+                    <div class="before-after-wrapper">
+                        <div class="before-image">
+                            <div class="image-label">Před</div>
+                            <div class="placeholder-image before">
+                                <i class="fas fa-frown"></i>
+                                <p>Před ošetřením</p>
+                            </div>
                         </div>
-                        <button class="post-message-btn" id="postMessageBtn">📮 Poslat vzkaz</button>
-                    </div>
-                    
-                    <div class="messages-board" id="messagesBoard">
-                        <p class="empty-state">Zatím žádné vzkazy. 💌</p>
+                        <div class="after-image">
+                            <div class="image-label">Po</div>
+                            <div class="placeholder-image after">
+                                <i class="fas fa-smile-beam"></i>
+                                <p>Po ošetření</p>
+                            </div>
+                        </div>
+                        <input type="range" min="0" max="100" value="50" class="slider-range" id="comparisonSlider">
+                        <div class="slider-button">
+                            <i class="fas fa-arrows-alt-h"></i>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Malůvky -->
-                <div class="section-card">
-                    <h3 class="section-heading">🎨 Sdílené Malůvky</h3>
-                    <p class="hint">Nakresli něco pěkného, uvidím to já a i ty kdykoliv si to tu otevřeš..JŮŮŮ</p>
-                    
-                    <div class="drawing-studio">
-                        <div class="canvas-container">
-                            <canvas id="drawingCanvas" width="800" height="500"></canvas>
-                        </div>
-                        
-                        <div class="drawing-tools">
-                            <div class="tool-group">
-                                <label>Barva:</label>
-                                <input type="color" id="brushColor" value="#667eea">
-                                <button class="preset-color" data-color="#000000" style="background: #000000;"></button>
-                                <button class="preset-color" data-color="#667eea" style="background: #667eea;"></button>
-                                <button class="preset-color" data-color="#f093fb" style="background: #f093fb;"></button>
-                                <button class="preset-color" data-color="#4facfe" style="background: #4facfe;"></button>
-                                <button class="preset-color" data-color="#fa709a" style="background: #fa709a;"></button>
-                                <button class="preset-color" data-color="#fee140" style="background: #fee140;"></button>
-                            </div>
-                            
-                            <div class="tool-group">
-                                <label>Velikost štětce:</label>
-                                <input type="range" id="brushSize" min="1" max="30" value="3">
-                                <span id="brushSizeDisplay">3px</span>
-                            </div>
-                            
-                            <div class="tool-group">
-                                <button class="tool-btn" id="eraserBtn">🧹 Guma</button>
-                                <button class="tool-btn" id="clearCanvasBtn">🗑️ Smazat vše</button>
-                            </div>
-                        </div>
-                        
-                        <div class="drawing-submit">
-                            <input type="text" id="drawingAuthor" class="author-input" placeholder="Tvoje jméno" maxlength="20">
-                            <button class="post-drawing-btn" id="postDrawingBtn">🖼️ Sdílet malůvku</button>
-                        </div>
-                    </div>
-                    
-                    <div class="drawings-gallery" id="drawingsGallery">
-                        <p class="empty-state">Zatím žádné malůvky. Buď první umělec! 🎨</p>
-                    </div>
+                <div class="treatment-info">
+                    <h3>Příběh paní Marie (58 let)</h3>
+                    <p>"Celý život jsem se styděla za své zuby. Paní doktorka mi vrátila sebevědomí. Díky kombinaci bělení a fazet konečně zase rád usmívám – a to nejen na fotky s vnoučaty!"</p>
+                    <ul class="treatment-features">
+                        <li><i class="fas fa-check"></i> Bezbolestný zákrok</li>
+                        <li><i class="fas fa-check"></i> Trvá 2-3 návštěvy</li>
+                        <li><i class="fas fa-check"></i> Dlouhodobý efekt</li>
+                        <li><i class="fas fa-check"></i> Přirozený vzhled</li>
+                    </ul>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Floating Buttons -->
-    <button class="floating-btn" id="floatingQuickAccess" title="Rychlý přístup">
-        🏠
-    </button>
-    
-    <button class="floating-color-btn" id="colorSchemeToggle" title="Změnit barevnou paletu">
-        🎨
-    </button>
+    <!-- O ordinaci ig -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>O ordinaci</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>MUDr. Eva Vyhnalová</h3>
+                    <p class="lead">Vítám vás v naší rodinné ordinaci, kde se o vaše úsměvy starám s láskou a porozuměním.</p>
+                    <p>Jsem tu pro celou vaši rodinu – od těch nejmenších, kterým právě vyrůstají první zoubky, přes školáky s rovnátky, dospělé s potřebou korunek nebo bělení, až po naše seniory, kterým chci udržet krásný úsměv i v pozdějším věku.</p>
+                    <p>Vím, že návštěva zubaře není pro každého příjemná. Proto je mým cílem vytvořit klidné a přátelské prostředí, kde se nebojí ani ty nejmenší děti. Každému pacientovi věnuję potřebný čas a trpělivě vysvětluji každý krok.</p>
+                    <p>Ve své ordinaci kombinuji moderní technologie s lidským přístupem. Nezapomínám, že za každým úsměvem je člověk s jedinečnými potřebami a občas i obavami, které respektuji.</p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Moderní vybavení</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Péče o celou rodinu</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Bezbariérový přístup</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Klidné prostředí</div>
+                        </div>
+                    </div>
+                    <div class="personal-note">
+                        <i class="fas fa-quote-left"></i>
+                        <p><em>"Zubní lékařství je pro mě víc než jen práce. Je to poslání. Když vidím dítě, které přichází s úsměvem místo strachu, nebo seniora, kterému mohu vrátit radost z jídla a mluvení – to je můj největší úspěch."</em></p>
+                        <strong>– MUDr. Eva Vyhnalová</strong>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <svg width="100%" height="100%" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="400" height="500" rx="10" fill="#E8F4F8"/>
+                            <circle cx="200" cy="200" r="80" fill="#4A90E2" opacity="0.3"/>
+                            <path d="M200 150C172.386 150 150 172.386 150 200V250C150 277.614 172.386 300 200 300C227.614 300 250 277.614 250 250V200C250 172.386 227.614 150 200 150Z" fill="#4A90E2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Leaflet JS pro mapu -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    <!-- Interaktivní zubní mapa -->
+    <section class="dental-map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Kde vás bolí?</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Klikněte na zub v mapě a dozvíte se možné příčiny a doporučení</p>
+            </div>
+            
+            <div class="dental-map-container">
+                <div class="dental-map-visual">
+                    <div class="teeth-diagram">
+                        <!-- SVG Dental Chart -->
+                        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="dental-svg">
+                            <!-- Upper Jaw Background -->
+                            <path d="M 100 150 Q 400 50, 700 150" fill="#ff9999" opacity="0.3"/>
+                            
+                            <!-- Upper Teeth (Simplified representation) -->
+                            <!-- Right side (18-11) -->
+                            <rect class="svg-tooth" data-tooth="18" x="80" y="140" width="30" height="40" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="17" x="120" y="130" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="16" x="160" y="120" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="15" x="205" y="115" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="14" x="245" y="110" width="28" height="45" rx="5"/>
+                            <polygon class="svg-tooth" data-tooth="13" points="285,105 295,105 300,150 280,150" />
+                            <rect class="svg-tooth" data-tooth="12" x="315" y="100" width="25" height="42" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="11" x="350" y="95" width="25" height="40" rx="3"/>
+                            
+                            <!-- Left side (21-28) -->
+                            <rect class="svg-tooth" data-tooth="21" x="425" y="95" width="25" height="40" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="22" x="460" y="100" width="25" height="42" rx="3"/>
+                            <polygon class="svg-tooth" data-tooth="23" points="500,105 510,105 520,150 500,150" />
+                            <rect class="svg-tooth" data-tooth="24" x="527" y="110" width="28" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="25" x="565" y="115" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="26" x="605" y="120" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="27" x="648" y="130" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="28" x="690" y="140" width="30" height="40" rx="5"/>
+                            
+                            <!-- Lower Jaw Background -->
+                            <path d="M 100 450 Q 400 550, 700 450" fill="#ff9999" opacity="0.3"/>
+                            
+                            <!-- Lower Teeth -->
+                            <!-- Right side (48-41) -->
+                            <rect class="svg-tooth" data-tooth="48" x="80" y="420" width="30" height="40" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="47" x="120" y="410" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="46" x="160" y="400" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="45" x="205" y="395" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="44" x="245" y="390" width="28" height="45" rx="5"/>
+                            <polygon class="svg-tooth" data-tooth="43" points="285,390 295,390 300,435 280,435" />
+                            <rect class="svg-tooth" data-tooth="42" x="315" y="385" width="25" height="42" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="41" x="350" y="380" width="25" height="40" rx="3"/>
+                            
+                            <!-- Left side (31-38) -->
+                            <rect class="svg-tooth" data-tooth="31" x="425" y="380" width="25" height="40" rx="3"/>
+                            <rect class="svg-tooth" data-tooth="32" x="460" y="385" width="25" height="42" rx="3"/>
+                            <polygon class="svg-tooth" data-tooth="33" points="500,390 510,390 520,435 500,435" />
+                            <rect class="svg-tooth" data-tooth="34" x="527" y="390" width="28" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="35" x="565" y="395" width="30" height="48" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="36" x="605" y="400" width="34" height="50" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="37" x="648" y="410" width="32" height="45" rx="5"/>
+                            <rect class="svg-tooth" data-tooth="38" x="690" y="420" width="30" height="40" rx="5"/>
+                            
+                            <!-- Labels -->
+                            <text x="400" y="80" text-anchor="middle" class="jaw-label">Horní čelist</text>
+                            <text x="400" y="520" text-anchor="middle" class="jaw-label">Dolní čelist</text>
+                        </svg>
+                        
+                        <div class="dental-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot normal"></span>
+                                <span>Zdravý zub</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot selected"></span>
+                                <span>Vybraný zub</span>
+                            </div>
+                            <div class="legend-item">
+                                <i class="fas fa-hand-pointer"></i>
+                                <span>Klikněte na zub pro více informací</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tooth-info-panel" id="toothInfoPanel">
+                    <div class="info-panel-content">
+                        <button class="info-close" id="closeToothInfo">&times;</button>
+                        
+                        <!-- 3D Tooth Model -->
+                        <div class="tooth-3d-container" id="tooth3dContainer">
+                            <canvas id="tooth3dCanvas"></canvas>
+                            <div class="tooth-3d-label">Realistický 3D model zubu se otáčí</div>
+                        </div>
+                        
+                        <div class="tooth-icon-large" id="toothIconDefault">
+                            <i class="fas fa-tooth"></i>
+                        </div>
+                        <h3 id="toothTitle">Vyberte zub</h3>
+                        <p class="tooth-number" id="toothNumber">Klikněte na zub v mapě</p>
+                        
+                        <div class="tooth-details" id="toothDetails">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-exclamation-circle"></i> Možné příčiny bolesti:</h4>
+                                <ul id="toothCauses"></ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-lightbulb"></i> Doporučení:</h4>
+                                <ul id="toothRecommendations"></ul>
+                            </div>
+                            
+                            <div class="urgency-badge" id="urgencyBadge"></div>
+                            
+                            <a href="#contact" class="btn btn-primary btn-full">
+                                <i class="fas fa-calendar-plus"></i> Objednat se
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Služby -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Co pro vás můžu udělat</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Od prevence po náročnější zákroky - vždy s péčí a trpělivostí</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Preventivní péče</h3>
+                    <p>Pravidelné kontroly pro celou rodinu. Chci, abyste zuby nejen léčili, ale hlavně jim předcházeli. Dentální hygiena, fluoridace, poradím vám s čištěním i s výběrem kartáčku pro děti.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <h3>Léčba kazů a plomby</h3>
+                    <p>Když zub bolí nebo máte kaz, opravím ho šetrně a kvalitně. Používám bílé plomby, které vypadají přirozeně. Snažím se zachovat každý zub - je to vždy lepší než náhrada.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-smile-beam"></i>
+                    </div>
+                    <h3>Krásný úsměv</h3>
+                    <p>Nespokojeni s barvou nebo tvarem zubů? Můžeme je vybělit, opravit nebo vylepšit. Úsměv je vaše vizitka - a já vám pomůžu, abyste se za něj nemuseli stydět.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Zubní náhrady a protézy</h3>
+                    <p>Když už zub chybí, vyrobím vám korunku, můstek nebo celou protézu. Dbám na to, aby náhrada dobře seděla, vypadala přirozeně a vy jste s ní spokojeni.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <h3>Vytrhávání zubů</h3>
+                    <p>Když už zub nezachrání nic, vytrhu ho šetrně a s minimální bolestí. Vždy vás dobře znecitlivím a poradím, jak pečovat o ránu, aby se vše rychle zahojilo.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3>Péče o děti</h3>
+                    <p>Hravá a trpělivá péče o ty nejmenší. První návštěva bez strachu, kde si děti zvyknou, že zubař může být i kamarád.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h3>Zubní implantáty</h3>
+                    <p>Nejlepší řešení, když vám chybí zub. Implantát je jako umělý kořen - na něj pak nasadíme korunku. Vypadá a funguje jako skutečný zub. Spolupraci s implantologem vám ráda zprostředkuji.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-grip-lines"></i>
+                    </div>
+                    <h3>Rovnátka (doporučení)</h3>
+                    <p>Ortodoncii nedělám sama, ale když vidím, že by vaše dítě rovnátka potřebovalo, doporučím vás ke kolegovi. Při ortodontické léčbě se pak o zuby staráme společně.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Léčba dásní</h3>
+                    <p>Krvací vám dásně? Otékají se? To může být parodontitída. Vyhoďíme zánět, provedeme hloubkové čištění a nautuím vás, jak dásněm pečovat doma.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Akutní bolest</h3>
+                    <p>Zub bolí? Vytloukl se dospívající zub? Ulomila se korunka? Zavolejte a zkusíme vás objednat ještě dnes. Akutní bolest nebudete čekat - mám rezervovaný čas právě pro tyto případy.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-x-ray"></i>
+                    </div>
+                    <h3>Digitální rentgen</h3>
+                    <p>Když potřebuji vidět, co se děje uvnitř zubu, uděláme rentgen. Používám moderní digitální zařízení s minimálním zářením - je to bezpečné i pro děti.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- technologie -->
+    <section id="technology" class="technology">
+        <div class="container">
+            <div class="section-header">
+                <h2>Jak vám usnadňujeme návštěvu</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Moderní vybavení znamená rychlejší, příjemnější a šetrnější ošetření</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-x-ray"></i>
+                    </div>
+                    <h4>Digitální rentgen</h4>
+                    <p>Vidím, co se děje uvnitř zubu - s minimálním zářením, bezpečné i pro děti</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h4>Kamera do úst</h4>
+                    <p>Ukážu vám na monitoru, co vidím já - pochopíte, proč je potřeba léčit</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Šetrné znecitlivění</h4>
+                    <p>Moderní anestetika a pomalu aplikační systém - málokdy pocítíte píchnutí</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-laptop-medical"></i>
+                    </div>
+                    <h4>Přesné plomby a korunky</h4>
+                    <p>Počítačové měření zajišťuje, že náhrada sedí dokonale napoprvé</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- recenze -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Rodinné příběhy našich pacientů</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Od prvního zoubku po krásný úsměv v důchodu</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"S paní doktorkou chodím už přes 10 let a vedla jsem k ní i své děti. Mají ji moc rádi! Malý Honzík se dokonce těší na kontroly, protože dostává nálepku. To u zubaře! Konečně ordinace, kde se nebojí ani děti."</p>
+                    <div class="testimonial-author">
+                        <strong>Petra a Honzík (5 let)</strong>
+                        <span>Spokojená maminka</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"V mých 68 letech jsem už navštívil mnoho zubařů. Paní doktorka je však výjimečná – má trpělivost, cit a vždy si udělá čas vše v klidu vysvětlit. Díky ní mám krásné zuby a nemusím se stydět při setkání s přáteli."</p>
+                    <div class="testimonial-author">
+                        <strong>Pan Miroslav K. (68 let)</strong>
+                        <span>Senior s krásným úsměvem</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Celá naše rodina – já, manžel a tři děti – chodíme k paní doktorce. Je to pro nás obrovská výhoda. Znají nás, vědí o nás vše podstatné a péče je opravdu individuální. Cítíme se tu jako doma."</p>
+                    <div class="testimonial-author">
+                        <strong>Rodina Novákových</strong>
+                        <span>5členná rodina</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Časté dotazy rodičů a pacientů</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Odpovědi na otázky, které nám kladete nejčastěji</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Od kolika let můžu přivést své dítě na první prohlídku?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Doporučuji přivést vaše miminko poprvé kolem 1. roku věku, jakmile se objeví první zoubky. Jde hlavně o to, aby si dítě zvyklo na prostředí ordinace a já vás mohla poradit s péčí o první zoubky. Čím dříve začneme, tím přirozenější bude zubař pro vaše dítě celý život!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Bolí ordinace? Můj syn se strašně bojí...</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Rozumím vašim obavám - sama jsem máma. Záleží mi na tom, aby se děti i dospělí u mě cítili v bezpečí. Používáme moderní anestezie a vždy postupujeme po malých krůčcích. U dětí často stačí ukázat nástroje, nechat si je prohlédnout, a pak teprve začít. Pokud se dítě bojí, máme čas - raději dvě kratší návštěvy než jeden stresující zážitek.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Jak často bychom měli chodit na kontroly?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Pro většinu pacientů doporučuji kontrolu každých 6 měsíců. U dětí do 6 let a seniorů někdy i častěji - každé 3-4 měsíce. Pokud máte zdravé zuby a dobrou péči, stačí dvě návštěvy ročně. Vždy to ale přizpůsobuji individuálně - každý má jiné zuby a jiné potřeby.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Bereš nové pacienty? Jak se objednat?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ano, ráda přijmu nové pacienty - i celé rodiny! Nejjednodušší je zavolat na <strong>518 306 123</strong> během pracovní doby. Můžete také napsat na email nebo SMS/WhatsApp. První návštěvu obvykle stihneme domluvit do 2 týdnů, u akutních problémů vás samozřejmě vezmu dříve.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Co si mám vzít s sebou na první návštěvu?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nezapomeňte <strong>kartičku pojišťovny</strong> a pokud máte nějaké zdravotní problémy nebo berete léky, seznam léků. U dětí je dobré vzít i jejich oblíbenou hračku pro klid. Pokud máte zdravotní dokumentaci od předchozího zubaře, je super ji mít taky, ale není to podmínka.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Moje dcera potřebuje rovnátka. Děláte to tady?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ortodoncii (rovnátka) nedělám sama, ale spolupracuji s výbornými orthodontisty v okolí. Pokud vidím, že by vaše dítě rovnátka potřebovalo, doporučím vás dále a pomůžu s koordinací péče. Zůstaneme v kontaktu a budu se starat o běžnou péči i během ortodontické léčby.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Babička má problém s protézou - můžete pomoct?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Samozřejmě! Starším pacientům s protézami se věnuji pravidelně. Umím protézu opravit, přestavit nebo vyrobit novou. Je důležité, aby protéza dobře seděla a nedělala problémy při žvýkání. Přiveďte babičku na prohlídku a uvidíme, jak jí pomoct.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Pracujete s pojišťovnou? Kolik co stojí?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Mám smlouvy se všemi zdravotními pojišťovnami, takže základní péči máte plně hrazenou. U některých výkonů (bílé plomby, bělení, zubní kámen nad rámec základu) jsou doplatky - vždy vás předem informuji o ceně a můžete se rozhodnout. Ceny se snažím držet rozumné, aby si péči mohla dovolit každá rodina.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Booking PROZATÍM -->
+    <div class="booking-placeholder" style="background: var(--bg-accent); padding: 60px 20px; text-align: center;">
+        <div class="container">
+            <i class="fas fa-calendar-alt" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+            <h2 style="margin-bottom: 15px;">Online objednání - v přípravě</h2>
+            <p style="color: var(--text-light); margin-bottom: 25px;">Funkční booking systém bude brzy k dispozici!</p>
+            <a href="#contact" class="btn btn-primary">Zatím nás kontaktujte</a>
+        </div>
+    </div>
+
+    <!-- Zdravotní dotazník -->
+    <section id="questionnaire" class="questionnaire-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Zdravotní dotazník</h2>
+                <div class="section-line"></div>
+                <p class="section-description">Vyplňte před první návštěvou - ušetří to váš čas</p>
+            </div>
+            <div class="questionnaire-container">
+                <div class="questionnaire-intro">
+                    <i class="fas fa-file-medical"></i>
+                    <h3>Proč vyplnit dotazník?</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Rychlejší první návštěva</li>
+                        <li><i class="fas fa-check"></i> Lepší příprava lékaře na ošetření</li>
+                        <li><i class="fas fa-check"></i> Bezpečnější péče přizpůsobená vašemu zdraví</li>
+                        <li><i class="fas fa-check"></i> Možnost stáhnout jako PDF</li>
+                    </ul>
+                    <button class="btn btn-primary" id="startQuestionnaire">Začít vyplňovat</button>
+                </div>
+                <div class="questionnaire-form" id="questionnaireForm" style="display: none;">
+                    <form id="healthForm">
+                        <h4>Základní informace</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Důvod návštěvy *</label>
+                                <select required>
+                                    <option value="">Vyberte...</option>
+                                    <option>Preventivní kontrola</option>
+                                    <option>Bolest zubů</option>
+                                    <option>Estetická úprava</option>
+                                    <option>Dentální hygiena</option>
+                                    <option>Jiné</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h4>Zdravotní stav</h4>
+                        <div class="checkbox-list">
+                            <label><input type="checkbox"> Diabetik</label>
+                            <label><input type="checkbox"> Srdeční onemocnění</label>
+                            <label><input type="checkbox"> Vysoký tlak</label>
+                            <label><input type="checkbox"> Alergie na léky</label>
+                            <label><input type="checkbox"> Těhotenství</label>
+                            <label><input type="checkbox"> Užívání léků na ředění krve</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Další zdravotní problémy nebo alergie</label>
+                            <textarea rows="3" placeholder="Uveďte prosím..."></textarea>
+                        </div>
+
+                        <h4>Stomatologická anamnéza</h4>
+                        <div class="form-group">
+                            <label>Kdy jste naposledy navštívil/a zubního lékaře?</label>
+                            <select>
+                                <option>Méně než před 6 měsíci</option>
+                                <option>6-12 měsíců</option>
+                                <option>1-2 roky</option>
+                                <option>Více než 2 roky</option>
+                            </select>
+                        </div>
+
+                        <div class="checkbox-list" style="margin-top: 20px;">
+                            <label><input type="checkbox"> Máte strach ze zubaře</label>
+                            <label><input type="checkbox"> Měl/a jste komplikace při předchozím ošetření</label>
+                            <label><input type="checkbox"> Škrípete zuby</label>
+                            <label><input type="checkbox"> Krvácející dásně</label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="downloadPDF">
+                                <i class="fas fa-download"></i> Stáhnout jako PDF
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Odeslat
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- kontakt -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Kontakt a objednání</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h3>Ordinační hodiny</h3>
+                        <div class="hours-list">
+                            <div class="hours-item">
+                                <span class="day">Pondělí</span>
+                                <span class="time">8:00 - 15:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="day">Úterý</span>
+                                <span class="time">8:00 - 15:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="day">Středa</span>
+                                <span class="time">8:00 - 15:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="day">Čtvrtek</span>
+                                <span class="time">8:00 - 15:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="day">Pátek</span>
+                                <span class="time">8:00 - 13:00</span>
+                            </div>
+                            <div class="hours-item closed">
+                                <span class="day">Sobota - Neděle</span>
+                                <span class="time">Zavřeno</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <h3>Kontaktní údaje</h3>
+                        <div class="contact-details">
+                            <div class="detail-item">
+                                <i class="fas fa-phone-alt detail-icon"></i>
+                                <div>
+                                    <strong>Telefon</strong>
+                                    <p>+420 123 456 789</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-envelope detail-icon"></i>
+                                <div>
+                                    <strong>Email</strong>
+                                    <p>ordinace@vyhnalova.cz</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt detail-icon"></i>
+                                <div>
+                                    <strong>Adresa</strong>
+                                    <p>Náměstí Svobody 123<br>696 81 Bzenec</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <div class="contact-card">
+                        <h3>Napište nám</h3>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Vaše jméno" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Váš email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone" placeholder="Váš telefon">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" rows="5" placeholder="Vaše zpráva" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Odeslat zprávu</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- patka dole -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Zubní ordinace</h4>
+                    <p>MUDr. Eva Vyhnalová</p>
+                    <p>Moderní péče o váš úsměv</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Rychlý kontakt</h4>
+                    <p>Tel: +420 123 456 789</p>
+                    <p>Email: ordinace@vyhnalova.cz</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Ordinace</h4>
+                    <p>Náměstí Svobody 123</p>
+                    <p>696 81 Bzenec</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MUDr. Eva Vyhnalová - Všechna práva vyhrazena</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <button class="auth-modal-close">&times;</button>
+            
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <h2><i class="fas fa-sign-in-alt"></i> Přihlášení</h2>
+                <div class="auth-message" id="loginMessage"></div>
+                <form id="loginFormSubmit">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="vas@email.cz" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Heslo</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Přihlásit se</button>
+                </form>
+                <p class="auth-switch">Nemáte účet? <a href="#" id="showRegister">Zaregistrujte se</a></p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm" style="display: none;">
+                <h2><i class="fas fa-user-plus"></i> Registrace</h2>
+                <div class="auth-message" id="registerMessage"></div>
+                <form id="registerFormSubmit">
+                    <div class="form-group">
+                        <label>Jméno a příjmení</label>
+                        <input type="text" id="regName" placeholder="Jan Novák" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="regEmail" placeholder="vas@email.cz" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input type="tel" id="regPhone" placeholder="+420 123 456 789" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Heslo</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Vytvořit účet</button>
+                </form>
+                <p class="auth-switch">Již máte účet? <a href="#" id="showLogin">Přihlaste se</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Dashboard -->
+    <div class="patient-dashboard" id="patientDashboard" style="display: none;">
+        <div class="dashboard-content">
+            <button class="dashboard-close">&times;</button>
+            
+            <div class="dashboard-header">
+                <div class="patient-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="patient-info">
+                    <h2 id="patientName">Loading...</h2>
+                    <p id="patientEmail">Loading...</p>
+                </div>
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Odhlásit se
+                </button>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Personal Info Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-id-card"></i> Osobní údaje</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">Jméno:</span>
+                            <span class="info-value" id="dashName">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value" id="dashEmail">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Telefon:</span>
+                            <span class="info-value" id="dashPhone">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Registrován:</span>
+                            <span class="info-value" id="dashRegistered">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointments Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-calendar-check"></i> Nadcházející návštěvy</h3>
+                    <div class="appointments-list" id="appointmentsList">
+                        <div class="empty-state">
+                            <i class="fas fa-calendar-plus"></i>
+                            <p>Zatím nemáte žádné objednané návštěvy</p>
+                            <a href="#contact" class="btn btn-primary">Objednat se nyní</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-history"></i> Historie návštěv</h3>
+                    <div class="history-list">
+                        <div class="history-item">
+                            <div class="history-date">15. 01. 2026</div>
+                            <div class="history-desc">Preventivní kontrola + dentální hygiena</div>
+                            <div class="history-status completed">Dokončeno</div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-date">10. 09. 2025</div>
+                            <div class="history-desc">Léčba kazu + bílá plomba</div>
+                            <div class="history-status completed">Dokončeno</div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-date">20. 03. 2025</div>
+                            <div class="history-desc">Preventivní prohlídka</div>
+                            <div class="history-status completed">Dokončeno</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-bolt"></i> Rychlé akce</h3>
+                    <div class="quick-actions">
+                        <a href="#contact" class="action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span>Objednat návštěvu</span>
+                        </a>
+                        <a href="#questionnaire" class="action-btn">
+                            <i class="fas fa-file-medical"></i>
+                            <span>Zdravotní dotazník</span>
+                        </a>
+                        <a href="https://wa.me/420123456789" class="action-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Napsat přes WhatsApp</span>
+                        </a>
+                        <a href="#faq" class="action-btn">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Časté dotazy</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Payments Card -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-credit-card"></i> Platby k uhrazení</h3>
+                    <div class="payments-list" id="paymentsList">
+                        <div class="payment-item unpaid">
+                            <div class="payment-header">
+                                <div class="payment-title">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <span>Dentální hygiena</span>
+                                </div>
+                                <div class="payment-amount">890 Kč</div>
+                            </div>
+                            <div class="payment-details">
+                                <span class="payment-date">
+                                    <i class="fas fa-calendar"></i> Splatnost: 05. 02. 2026
+                                </span>
+                                <span class="payment-status status-unpaid">Nezaplaceno</span>
+                            </div>
+                            <button class="btn-pay">
+                                <i class="fas fa-check-circle"></i> Zaplatit online
+                            </button>
+                        </div>
+
+                        <div class="payment-item unpaid">
+                            <div class="payment-header">
+                                <div class="payment-title">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <span>Bílá plomba - doplatek</span>
+                                </div>
+                                <div class="payment-amount">450 Kč</div>
+                            </div>
+                            <div class="payment-details">
+                                <span class="payment-date">
+                                    <i class="fas fa-calendar"></i> Splatnost: 12. 02. 2026
+                                </span>
+                                <span class="payment-status status-unpaid">Nezaplaceno</span>
+                            </div>
+                            <button class="btn-pay">
+                                <i class="fas fa-check-circle"></i> Zaplatit online
+                            </button>
+                        </div>
+
+                        <div class="payment-item paid">
+                            <div class="payment-header">
+                                <div class="payment-title">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <span>Preventivní kontrola</span>
+                                </div>
+                                <div class="payment-amount">0 Kč</div>
+                            </div>
+                            <div class="payment-details">
+                                <span class="payment-date">
+                                    <i class="fas fa-calendar"></i> Uhrazeno: 15. 01. 2026
+                                </span>
+                                <span class="payment-status status-paid">
+                                    <i class="fas fa-check"></i> Zaplaceno
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payments-summary">
+                        <div class="summary-item">
+                            <span>Celkem k úhradě:</span>
+                            <strong>1 340 Kč</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="dental-map.js" defer></script>
 </body>
-
 </html>
