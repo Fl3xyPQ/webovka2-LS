@@ -141,23 +141,18 @@ function initParticles() {
 // ==============================================
 
 const compliments = [
-    "Tvoje kaštánkové oči dokážou vždycky divy.",
-    "Když se usmíváš, rozzáříš i město bez elektřiny v noci.",
-    "Tvoje mega pozitivní energie, kterou rozdáváš kolem sebe je k nezaplacení.",
-    "Když se směješ, je to jak kdyby Beethoven vstal z mrtvých a dropnul novou symfonii",
-    "Vtípečky, které říkáš mě vždycky strašně rozesmějou a skoro furt si říkám, jak jsem lucky, že se s tebou bavím a sdílím smysl pro humor.",
-    "Máš dokonalou vlastnost vypadat pěkně s jakýmkoliv hairstylem jednak díky stylu, ale taky zdraví vlásků...",
-    "Myslím, že jsi dost empatický člověk a dostatečně inteligentní na to, abys pochopila i MĚ, což je megaa rare.",
-    "Vždy když jsem s tebou, čas plyne rychle, ale je mnohem pěkněji strávený a děkuju vždy všemu, že ho můžu trávit s tebou.",
-    "Pokaždý když mi napíšeš, otevřu si tvoji notifikaci jak jen rychle to jde..",
-    "Málokdo může být jako ty - nádherný zevnitř i zvenku.",
-    "Tvá odhodlanost mě někdy nepřestává upřímně udivovat.",
-    "Mám tě rád jako ty máš ráda Mekáč.",
-    "Někdy jsem na tebe naštvaný, protože když vyjdeš do místnosti, všichni v porovnání s tebou vypadáme jak úplní ňoumové :(",
-    "Hrozně si u tebe cením tvé upřímnosti - nikdy s ní prosím nepřestávej",
-    "Jsi hrozně laskavý a hodný člověk, nikdy to prosím neměň.",
-    "Neber tyto komplimenty jako něco víc jo, jen říkám pravdu :("
-];
+   "Ve tvých očích se vždycky může ztratit kdejaký plavec.",
+   "Tvoje vůně mě někdy až nechtěně provází všude kam jdu, ale je nádherná a upřímně dosti atraktivní hihi.Kéž bych jen věděl, kdo ti ji doporučil..",
+   "Tvůj humor je absolutně boží, vzhledem k tomu že ho sdílíme a někdy si u společného smíchu říkám, jak rád jsem, že tě mám..",
+   "Hrozně si cením tvé upřímnosti",
+   "Jsi hrozně milý, vtipný a originálně specifický člověk, prosím, nikdy se neměň Rarášku.",
+   "Hrozně obdivuju tvoji odhodlanost a nikdy ji nepřestanu obdivovat..klobouk dolů",
+   "Někdy jsi prokrastinátor, ale dokážeš se srovnat a napravit cokoliv vcukuletu..to stojí za pochvalu, I could never.",
+   "Jsi přátelská a ráda pomůžeš lidem, což je vlastnost která je sama o sobě neskutečně úžasná",
+   "Jsi prostě speciální Radanka, která naplňuje životy lidí kolem sebe smíchem a zážitky a lowkey někdy i břicha mekáčem (pls mně)",
+   "Tvůj smích zní jako kdyby Beethoven dropnul novej beat",
+   "Máš hrozně pěkný hlas, ať už když se směješ, tak když normálně mluvíš..fakt",
+   "Slunce žárlí, že svítíš, když se usmíváš víc než ono.",];
 
 let complimentCount = 0;
 
@@ -2403,5 +2398,406 @@ function loadLeaderboard(gameName, elementId) {
         });
 }
 
-console.log('🌸 Radanky bezpečné místo initialized! 🌸');
+// ==============================================
+// LETTER MODAL FUNCTIONALITY
+// ==============================================
 
+const letterContents = {
+    '1': {
+        title: 'Když máš den blbec',
+        content: `
+            <p>Ahoj Radanko ❤️,</p>
+            
+            <p>Chci abys věděla, že mi na tobě a tvém mentálním zdraví neskutečně záleží..</p>
+            
+            <h4>✨ Jak si trošku zlepšit náladu:</h4>
+            <ul>
+                <li>Zkus zavzpomínat na hezké vzpomínky, které spolu máme, Mekii, výlety a hraní Robloxuu, všechno možnéé 😊</li>
+                <li>Napiš miii! Nebo zavolej! Cokoliv, reach outni a já ti vždycky pomůžu, ať jsou dvě ráno nebo odpoledne, budu s tebou.</li>
+                <li>Přečti si textík dole, který jsem napsal speciálně pro tebe, sám. Mám tě rád ❤️</li>
+            </ul>
+            
+            <h4>💝 Vzkaz pro tebe, když je ti blbě:</h4>
+            <ul>
+                <li>Rady, mám tě rád..hrozně rád. Upřímně řeknu, že na světě reálně nemám nikoho bližšího jako ty, kamarádství je sice komplikované, někdy jeden člověk vnímá toho druhého jako nejlepšího kamaráda ever, ale ten druhý tak moc ne - neříkám, že to je konkrétně náš případ, ale na Betynku samozřejmě nemám, zas tak velký bůh nejsem. Každopádně bych ale chtěl podotknout, že jsme si neskutečně sedli a já deep in my mind vím, že jsi prostě taková moje druhá půlka - jiné pohlaví, ale hrozně podobný člověk. Ano, máme svoje differences, ale to má snad každý člověk, přecijen každý jsme svým způsobem unikátní, ale my dva se za mě i přes to hodně blížíme v podobnosti. Neskutečně moc pro mě znamenáš a já si uvědomuju, jaké štěští máme, že jsme zrovna VE STEJNÉ třídě a že jsme se zrovna MY DVA začali bavit. Tolik lidí and yet we met...v průběhu času si mi přirostla k srdci víc a víc a bylo to jako ztratit kus sebe, když jsme se po minulých Vánocích přestali bavit. Jsem hrozně rád, že jsme konvekci obnovili a prostě se zase začali bavit, oba víme, že tam něco je, nějaké nadpřirozené pouto, které je nejspíše nezlomitelné, pakliže by někdo z nás neudělal něco opravdu opravdu stupidního. Ale myslím si, že je naším osudem se dál bavit a držet v kontaktu, protože někdo jako ty je once in a lifetime person a to je prostě krutá pravda. Všechny aspekty, které na tobě mám rád a nebo taktéž miluji jsem ti již několikrát vyjmenoval, tudíž si myslím, že jsi si jich vědoma - ať už jsou to tvé oči, vlasy, vtípky nebo chuť na mekáč, všechno to tě shapuje a dělá opravdu PERFEKTNÍM člověkem. Upřímně, kdybych měl udělat seznam věcí, které na tobě obdivuju nebo kterých si u tebe vážím, text by byl delší než Píseň ledu a ohně, která má asi nějak 700 stránek, hihi..Bobe, klidně se sem kdykoliv vrať zlepšit si náladu, nebo zahnat zlé myšlenky. Jsme si navždy otevření a budeme spolu jistojistě probírat veškeré problémy, takže mi prostě kdykoliv napiš, zavolej nebo na mě zařvi přes ulici, doběhnu, odepíšu a zvednu mobil, cokoliv. Myslím totiž, že ty bys prostě pro mě udělala to samé a to je to krásné na tom, toho si hrozně vážím. Vztahu mezi dvoumi lidmi, který se neustále vyvíjí do různých směrů a větví se na mnohem sofistikovanější druh mezilidského vztahu, který nás fakt úzce spojuje. Je to tady celkem slovíčkaření a asi nedávám moc smysl, ale myslím že ze všech lidí na světě máš právě TY tu největší šanci mě pochopit a mé myšlenkové pochody.</li>
+                <li>Zasloužíš si zdědit Slunce, celý svět a hvězdy, vše si prostě zasloužíš tím, co děláš pro okolí, svým úsměvem kterým pomáháš Sluníčku vyjasnit okolí, svou energií, kteoru dokážeš rozesmát kohokoliv..ať už když se ti stane něco trapného, nebo řekneš nějaký trefný vtípek či uděláš něco roztomilého...víš, asi jsem ti to už někdy říkal, ale myslím si, že je neskutečné štěstí, že se tak lehce směješ a přijdě ti spousta věcí vtipných - protože by byla opravdu nehorázná škoda, kdyby svět a já přišel o to tě vidět se smát skoro furt, nebo ten smích čistě poslouchat. Jsem úchyl? To nevím, ale je v tom jistá krása, je to něco, co vnímám jako hrozně pěkný a roztomilý, že si tímto způsobem hrozně užíváš život a svůj pobyt tady. Rady, mám tě hrozně moc rád a doufám, že se nikdy a tím myslím NIKDY neodloučíme, protože by to bylo určitě víc než nesnesitelné pro oba z nás. Doufám, že to vidíš stejně. NIKDY a tím myslím NIKDY si prosím nemysli, že mi na tobě nezáleží, že jsem na tebe schopný být naštvaný po dlouhou dobu, že pro tebe nepřekočím divoké řeky a nepřelezu hornaté, ostré skály. Kladu velký důraz aby ti bylo jasné, že jsem vždy tvá obrovská opora, která s tebou projde klidně ohněm a nechá se spálit společně s tebou, nebo tě od toho ohně ochrání. Možná se někdy třeba pohádáme, ale to k tomu tak trochu patří, ale věz, že jak jsem zmínil, vždycky ti to odpustím po určité době a chci se znovu bavit, myslím, že to vidíš nějak stejně. A i kdybychom měli zrovna komplikované období - ať už z mojí, či tvojí strany, jsem ochotný to vše hodit stranou a pomoct ti s nějakým problémem, který tě trápí. Dát na bok spor a prostě ti pomoct, vytáhnout tě ze sraček a očistit. Kdykoliv, Kdekoliv. Mám tě rád Rady, už mi hrozně chybíš a těším se na další hang outtt. ❤️</li>
+            </ul
+        `
+    },
+    '2': {
+        title: 'Když ti chybím',
+        content: `
+            <p>Ty mně taky ❤️,</p>
+            
+            <p>Chybím ti? Věř mi, že ty mi taky, každou vteřinou, kterou neprožijeme společně - ať už osobně, nebo alespoň online, takže neboj, nejsi v tom sama..</p>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <p> </p>
+        `
+    },
+    '3': {
+        title: 'Když se nudíš',
+        content: `
+            <p> </p>
+            
+            <p> </p>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <p><strong> </strong></p>
+        `
+    },
+    '4': {
+        title: 'Když tě něco bolí',
+        content: `
+            <p> </p>
+            
+            <p> </p>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <h4> </h4>
+            <ul>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+                <li> </li>
+            </ul>
+            
+            <h4> </h4>
+            <p><strong> </strong></p>
+            
+            <h4></h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            
+            <p></p>
+        `
+    }
+};
+
+// ==============================================
+// MUSIC SYSTEM
+// ==============================================
+
+const musicSettings = {
+    currentAudio: null,
+    mainAudio: null,
+    letterAudios: {},
+    isPlaying: false,
+    currentLetter: null
+};
+
+function initMusicPlayer() {
+    const musicToggle = document.getElementById('musicToggle');
+    const musicPlayer = document.getElementById('musicPlayer');
+    const closeMusicBtn = document.getElementById('closeMusicPlayer');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const progressSlider = document.getElementById('progressSlider');
+    const currentTimeDisplay = document.getElementById('currentTime');
+    const totalTimeDisplay = document.getElementById('totalTime');
+    
+    // Načíst všechny audio elementy
+    musicSettings.mainAudio = document.getElementById('mainAudio');
+    musicSettings.letterAudios = {
+        '1': document.getElementById('letter1Audio'),
+        '2': document.getElementById('letter2Audio'),
+        '3': document.getElementById('letter3Audio'),
+        '4': document.getElementById('letter4Audio')
+    };
+    
+    // Nastavit aktuální audio na hlavní hudbu
+    musicSettings.currentAudio = musicSettings.mainAudio;
+    
+    // Nastavit počáteční hlasitost
+    if (musicSettings.currentAudio) {
+        musicSettings.currentAudio.volume = 0.5;
+        
+        // Automatické přehrávání po načtení stránky
+        // Pozor: některé prohlížeče blokují autoplay, dokud uživatel neinteraguje se stránkou
+        const tryAutoplay = () => {
+            const playPromise = musicSettings.currentAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicSettings.isPlaying = true;
+                    updatePlayPauseButton();
+                }).catch((error) => {
+                    console.log('Autoplay byl blokován prohlížečem. Klikni na stránku pro spuštění hudby.');
+                    // Pokusit se znovu po první interakci uživatele
+                    document.addEventListener('click', function startOnInteraction() {
+                        musicSettings.currentAudio.play();
+                        musicSettings.isPlaying = true;
+                        updatePlayPauseButton();
+                        document.removeEventListener('click', startOnInteraction);
+                    }, { once: true });
+                });
+            }
+        };
+        
+        // Pokusit se přehrát po načtení
+        if (document.readyState === 'complete') {
+            tryAutoplay();
+        } else {
+            window.addEventListener('load', tryAutoplay);
+        }
+    }
+    
+    if (!musicToggle || !musicPlayer) return;
+    
+    // Toggle music player
+    musicToggle.addEventListener('click', () => {
+        musicPlayer.classList.toggle('active');
+    });
+    
+    // Close music player
+    closeMusicBtn.addEventListener('click', () => {
+        musicPlayer.classList.remove('active');
+    });
+    
+    // Play/Pause button
+    playPauseBtn.addEventListener('click', () => {
+        if (musicSettings.isPlaying) {
+            musicSettings.currentAudio.pause();
+            musicSettings.isPlaying = false;
+        } else {
+            musicSettings.currentAudio.play();
+            musicSettings.isPlaying = true;
+        }
+        updatePlayPauseButton();
+    });
+    
+    // Volume control
+    volumeSlider.addEventListener('input', (e) => {
+        const volume = e.target.value / 100;
+        musicSettings.currentAudio.volume = volume;
+        // Aplikovat na všechny audio elementy
+        if (musicSettings.mainAudio) musicSettings.mainAudio.volume = volume;
+        Object.values(musicSettings.letterAudios).forEach(audio => {
+            if (audio) audio.volume = volume;
+        });
+    });
+    
+    // Progress slider
+    progressSlider.addEventListener('input', (e) => {
+        const time = (e.target.value / 100) * musicSettings.currentAudio.duration;
+        musicSettings.currentAudio.currentTime = time;
+    });
+    
+    // Update progress
+    if (musicSettings.currentAudio) {
+        musicSettings.currentAudio.addEventListener('timeupdate', () => {
+            const progress = (musicSettings.currentAudio.currentTime / musicSettings.currentAudio.duration) * 100;
+            progressSlider.value = progress || 0;
+            currentTimeDisplay.textContent = formatTime(musicSettings.currentAudio.currentTime);
+        });
+        
+        musicSettings.currentAudio.addEventListener('loadedmetadata', () => {
+            totalTimeDisplay.textContent = formatTime(musicSettings.currentAudio.duration);
+        });
+    }
+    
+    function updatePlayPauseButton() {
+        playPauseBtn.textContent = musicSettings.isPlaying ? '⏸️' : '▶️';
+    }
+    
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+function switchToLetterMusic(letterId) {
+    const letterAudio = musicSettings.letterAudios[letterId];
+    const musicLabel = document.getElementById('currentMusicLabel');
+    
+    if (letterAudio && musicSettings.currentAudio !== letterAudio) {
+        // Pozastavit a resetovat aktuální audio
+        if (musicSettings.currentAudio) {
+            musicSettings.currentAudio.pause();
+            musicSettings.currentAudio.currentTime = 0;
+        }
+        
+        // Nastavit nové audio
+        musicSettings.currentAudio = letterAudio;
+        musicSettings.currentLetter = letterId;
+        musicSettings.currentAudio.volume = document.getElementById('volumeSlider').value / 100;
+        
+        // Přehrát novou hudbu 
+        musicSettings.currentAudio.play();
+        musicSettings.isPlaying = true;
+        
+        // Aktualizovat label
+        const letterTitles = {
+            '1': 'Naše oblíbená yearning songa..promiň mi to ❤️',
+            '2': 'Hudba k dopisu - Chybím ti',
+            '3': 'Hudba k dopisu - Nuda',
+            '4': 'Hudba k dopisu - Bolest'
+        };
+        musicLabel.textContent = letterTitles[letterId] || 'Hudba k dopisu';
+        
+        // Update play button
+        document.getElementById('playPauseBtn').textContent = '⏸️';
+    }
+}
+
+function restoreMainMusic() {
+    const musicLabel = document.getElementById('currentMusicLabel');
+    
+    if (musicSettings.currentLetter && musicSettings.mainAudio) {
+        // Pozastavit aktuální audio
+        if (musicSettings.currentAudio) {
+            musicSettings.currentAudio.pause();
+            musicSettings.currentAudio.currentTime = 0;
+        }
+        
+        // Vrátit se k hlavní hudbě
+        musicSettings.currentAudio = musicSettings.mainAudio;
+        musicSettings.currentLetter = null;
+        musicSettings.currentAudio.volume = document.getElementById('volumeSlider').value / 100;
+        
+        // Přehrát hlavní hudbu
+        musicSettings.currentAudio.play();
+        musicSettings.isPlaying = true;
+        
+        // Aktualizovat label
+        musicLabel.textContent = 'Hlavní hudba';
+        
+        // Update play button
+        document.getElementById('playPauseBtn').textContent = '⏸️';
+    }
+}
+
+// Inicializace letter modal
+function initLetterModal() {
+    const modal = document.getElementById('letterModal');
+    const modalOverlay = modal.querySelector('.letter-modal-overlay');
+    const modalClose = modal.querySelector('.letter-modal-close');
+    const envelopes = document.querySelectorAll('.letter-envelope');
+    
+    // Otevření dopisu
+    envelopes.forEach(envelope => {
+        envelope.addEventListener('click', function() {
+            const letterId = this.dataset.letter;
+            const letterData = letterContents[letterId];
+            
+            if (letterData) {
+                // Nastavení obsahu
+                document.getElementById('letterModalTitle').textContent = letterData.title;
+                document.getElementById('letterModalBody').innerHTML = letterData.content;
+                
+                // Nascrollovat do středu stránky před zobrazením modalu
+                const scrollToMiddle = (document.documentElement.scrollHeight - window.innerHeight) / 2;
+                window.scrollTo({ top: scrollToMiddle, behavior: 'smooth' });
+                
+                // Přepnout na hudbu dopisu
+                switchToLetterMusic(letterId);
+                
+                // Zobrazení modalu
+                setTimeout(() => {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Zakázat scrollování pozadí
+                }, 100);
+                
+                // Animace obálky
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+            }
+        });
+    });
+    
+    // Zavření modalu
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Povolit scrollování
+        restoreMainMusic(); // Vrátit hlavní hudbu
+    }
+    
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+    
+    // Zavření na ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}
+
+// Inicializace po načtení stránky
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initLetterModal();
+        initMusicPlayer();
+    });
+} else {
+    initLetterModal();
+    initMusicPlayer();
+}
+
+console.log('🌸 Radanky bezpečné místo initialized! 🌸');
