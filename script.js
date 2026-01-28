@@ -1,13 +1,13 @@
 // ==============================================
 // RADANKY BEZPEČNÉ MÍSTO - JAVASCRIPT
-// Complete Interactive Features
+// Všechny interaktivní funkce
 // ==============================================
 
 // ==============================================
-// FIREBASE CONFIGURATION
+// FIREBASE NASTAVENÍ
 // ==============================================
 
-// IMPORTANT: Replace this with your Firebase config from Firebase Console
+// DŮLEŽITÉ: Tady je Firebase konfigurace z Firebase konzole
 const firebaseConfig = {
     apiKey: "AIzaSyDH_1n93MTuqFiBbXQj0J8HFQXgbvDnZow",
   authDomain: "super-c5fc1.firebaseapp.com",
@@ -17,11 +17,11 @@ const firebaseConfig = {
   appId: "1:372408116638:web:0ae4a2f5e2ac648a0da28f",
 };
 
-// Initialize Firebase
+// Nastartovat Firebase
 let db = null;
 let isBoardUnlocked = false;
 
-// Check if Firebase is loaded
+// Zkontrolovat jestli je Firebase načtenej
 if (typeof firebase !== 'undefined') {
     try {
         firebase.initializeApp(firebaseConfig);
@@ -35,24 +35,24 @@ if (typeof firebase !== 'undefined') {
 }
 
 // ==============================================
-// PAGE NAVIGATION
+// NAVIGACE MEZI STRÁNKAMA
 // ==============================================
 
 let currentPage = 'home';
 
 function navigateToPage(pageName) {
-    // Hide all pages
+    // Schovat všechny stránky
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
     });
     
-    // Show selected page
+    // Zobrazit vybranou stránku
     const targetPage = document.querySelector(`[data-page="${pageName}"]`);
     if (targetPage) {
         targetPage.classList.add('active');
         currentPage = pageName;
         
-        // Update nav buttons
+        // Aktualizovat navigační tlačítka
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.classList.remove('active');
         });
@@ -61,14 +61,14 @@ function navigateToPage(pageName) {
             activeBtn.classList.add('active');
         }
         
-        // Scroll to top
+        // Scrollnout nahoru
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
 
-// Nav button click handlers
+// Klik na navigační tlačítka
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize navigation
+    // Nastartovat navigaci
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const target = this.getAttribute('data-target');
@@ -76,12 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Logo clicks return home
+    // Kliknutí na logo vrátí domů
     document.querySelector('.logo').addEventListener('click', () => {
         navigateToPage('home');
     });
     
-    // Mood card navigation
+    // Navigace přes mood karty
     document.querySelectorAll('.mood-card').forEach(card => {
         card.addEventListener('click', function() {
             const target = this.getAttribute('data-navigate');
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Initialize features
+    // Nastartovat všechny funkce
     initParticles();
     initComplimentGenerator();
     initQuotesCarousel();
@@ -102,16 +102,16 @@ document.addEventListener('DOMContentLoaded', function() {
     initMoodTracker();
     initFloatingButton();
     initThemeSwitcher();
-    initBoard(); // Firebase board
-    initWellness(); // Wellness features
-    initGames(); // Mini games
+    initBoard(); // Firebase nástěnka
+    initWellness(); // Wellness věci
+    initGames(); // Minihry
     
-    // Show homepage by default
+    // Zobrazit homepage jako default
     navigateToPage('home');
 });
 
 // ==============================================
-// PARTICLE BACKGROUND
+// ČÁSTICOVÝ POZADÍ
 // ==============================================
 
 function initParticles() {
@@ -137,7 +137,7 @@ function initParticles() {
 }
 
 // ==============================================
-// COMPLIMENT GENERATOR
+// GENERÁTOR KOMPLIMENTŮ
 // ==============================================
 
 const compliments = [
@@ -163,14 +163,14 @@ function initComplimentGenerator() {
     
     if (!btn || !display || !counter) return;
     
-    // Load count from localStorage
+    // Načíst počet z localStorage
     const savedCount = localStorage.getItem('complimentCount');
     if (savedCount) {
         complimentCount = parseInt(savedCount);
         counter.textContent = complimentCount;
     }
     
-    // Show random compliment on load
+    // Zobrazit random kompliment po načtení
     showRandomCompliment();
     
     btn.addEventListener('click', showRandomCompliment);
@@ -192,7 +192,7 @@ function showRandomCompliment() {
 }
 
 // ==============================================
-// QUOTES CAROUSEL
+// KOLOTOČ S CITÁTY
 // ==============================================
 
 const quotes = [
@@ -258,7 +258,7 @@ function initQuotesCarousel() {
 }
 
 // ==============================================
-// MEMORY WALL
+// ZEĎÁK SE VZPOMÍNKAMA
 // ==============================================
 
 function initMemoryWall() {
@@ -272,11 +272,11 @@ function initMemoryWall() {
 }
 
 // ==============================================
-// COUNTER (Days/Hours/Minutes)
+// POČÍTADLO (Dny/Hodiny/Minuty)
 // ==============================================
 
 function initCounter() {
-    // Fixed date: 5. září 2024
+    // Fixní datum: 5. září 2024
     const fixedDate = '2024-09-05';
     startCountdown(fixedDate);
 }
@@ -322,7 +322,7 @@ function startCountdown(targetDate) {
 }
 
 // ==============================================
-// PLACES MAP - MAPA NAŠICH MÍST
+// MAPA NAŠICH MÍST
 // ==============================================
 
 function initPlacesMap() {
@@ -331,19 +331,19 @@ function initPlacesMap() {
     
     if (!filterButtons.length) return;
     
-    // Initialize real interactive map
+    // Nastartovat skutečnou interaktivní mapu
     initRealMap();
     
-    // Filter button click handlers
+    // Handler pro klik na filtr tlačítka
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Update active state
+            // Aktualizovat aktivní stav
             filterButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
             const filter = this.getAttribute('data-filter');
             
-            // Filter places
+            // Filtrovat místa
             placeItems.forEach(place => {
                 if (filter === 'all') {
                     place.style.display = 'flex';
@@ -371,7 +371,7 @@ function initPlacesMap() {
         });
     });
     
-    // Add hover animation to places
+    // Přidat hover animaci na místa
     placeItems.forEach(place => {
         place.addEventListener('mouseenter', function() {
             this.style.transform = 'translateX(5px)';
@@ -383,21 +383,21 @@ function initPlacesMap() {
     });
 }
 
-// Initialize real interactive map with Leaflet
+// Nastartovat skutečnou interaktivní mapu s Leafletem
 function initRealMap() {
     const mapContainer = document.getElementById('realMap');
     if (!mapContainer || typeof L === 'undefined') return;
     
-    // Center map on Czech Republic to show all cities
+    // Vycentrovat mapu na Česko aby byly vidět všechna města
     const map = L.map('realMap').setView([49.5, 16.0], 7);
     
-    // Add OpenStreetMap tiles
+    // Přidat OpenStreetMap dlaždice
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
         maxZoom: 18,
     }).addTo(map);
     
-    // Custom icon style
+    // Vlastní styl ikony
     const customIcon = L.divIcon({
         className: 'custom-map-marker',
         html: '<div class="marker-pin">📍</div>',
@@ -406,7 +406,7 @@ function initRealMap() {
         popupAnchor: [0, -40]
     });
     
-    // Define places with coordinates
+    // Definovat místa se souřadnicema
     const places = [
         {
             name: 'Praha',
@@ -470,11 +470,11 @@ function initRealMap() {
         }
     ];
     
-    // Add markers for each place
+    // Přidat značky pro každé místo
     places.forEach(place => {
         const marker = L.marker(place.coords, { icon: customIcon }).addTo(map);
         
-        // Create popup content
+        // Vytvořit obsah popupu
         const popupContent = `
             <div class="map-popup">
                 <div class="popup-emoji">${place.emoji}</div>
@@ -485,20 +485,20 @@ function initRealMap() {
         
         marker.bindPopup(popupContent);
         
-        // Open popup on hover
+        // Otevřít popup při najetí myší
         marker.on('mouseover', function() {
             this.openPopup();
         });
     });
     
-    // Adjust map size after initialization
+    // Upravit velikost mapy po načtení
     setTimeout(() => {
         map.invalidateSize();
     }, 100);
 }
 
 // ==============================================
-// PUZZLE & SECRET MESSAGE
+// PUZZLE A TAJNÁ ZPRÁVA
 // ==============================================
 
 function initPuzzle() {
@@ -509,14 +509,14 @@ function initPuzzle() {
     
     if (!checkBtn || !riddleInput || !secretMessage) return;
     
-    // Puzzle piece click
+    // Klik na kousek puzzle
     pieces.forEach(piece => {
         piece.addEventListener('click', function() {
             this.classList.toggle('revealed');
         });
     });
     
-    // Check riddle answer
+    // Zkontrolovat odpověď na hádanku
     checkBtn.addEventListener('click', checkRiddle);
     riddleInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') checkRiddle();
@@ -525,7 +525,7 @@ function initPuzzle() {
     function checkRiddle() {
         const answer = riddleInput.value.trim().toLowerCase();
         
-        // CUSTOMIZE THIS - změň správnou odpověď
+        // PŘIZPŮSOB SI - změň správnou odpověď
         const correctAnswer = "řeže se smíchy";
         
         if (answer === correctAnswer) {
@@ -533,12 +533,12 @@ function initPuzzle() {
             riddleInput.disabled = true;
             checkBtn.disabled = true;
             
-            // Unlock all puzzle pieces
+            // Odemknout všechny kousky puzzle
             pieces.forEach(piece => {
                 piece.classList.add('revealed');
             });
         } else {
-            // Wrong answer shake
+            // Zatřást při špatné odpovědi
             riddleInput.style.animation = 'none';
             setTimeout(() => {
                 riddleInput.style.animation = 'shake 0.5s';
@@ -548,7 +548,7 @@ function initPuzzle() {
 }
 
 // ==============================================
-// LETTERS / ENVELOPES
+// DOPISY / OBÁLKY
 // ==============================================
 
 function initLetters() {
@@ -573,7 +573,7 @@ function initLetters() {
 }
 
 // ==============================================
-// NOTES SYSTEM
+// SYSTÉM POZNÁMEK
 // ==============================================
 
 function initNotes() {
@@ -648,7 +648,7 @@ function escapeHtml(text) {
 }
 
 // ==============================================
-// MOOD TRACKER
+// SLEDOVÁNÍ NÁLAD
 // ==============================================
 
 function initMoodTracker() {
@@ -664,7 +664,7 @@ function initMoodTracker() {
             const mood = this.getAttribute('data-mood');
             saveMood(mood);
             
-            // Visual feedback
+            // Vizuální feedback
             moodBtns.forEach(b => b.classList.remove('selected'));
             this.classList.add('selected');
             
@@ -685,7 +685,7 @@ function initMoodTracker() {
         
         moods.unshift(newMood);
         
-        // Keep only last 30 entries
+        // Ponechat jen posledních 30 záznamů
         if (moods.length > 30) {
             moods.pop();
         }
@@ -726,7 +726,7 @@ function initMoodTracker() {
 }
 
 // ==============================================
-// FLOATING QUICK ACCESS BUTTON
+// PLOVOUCÍ TLAČÍTKO PRO RYCHLÝ PŘÍSTUP
 // ==============================================
 
 function initFloatingButton() {
@@ -741,7 +741,7 @@ function initFloatingButton() {
 }
 
 // ==============================================
-// THEME SWITCHER
+// PŘEPÍNAČ MOTIVŮ
 // ==============================================
 
 function initThemeSwitcher() {
@@ -761,7 +761,7 @@ function initThemeSwitcher() {
     ];
     let currentThemeIndex = 0;
     
-    // Load saved theme from localStorage
+    // Načíst uložený motiv z localStorage
     const savedTheme = localStorage.getItem('selectedTheme') || '';
     if (savedTheme) {
         document.body.className = savedTheme;
@@ -770,18 +770,18 @@ function initThemeSwitcher() {
         updateColorButtonIcon(savedTheme);
     }
     
-    // Header theme toggle - toggles dark mode on/off
+    // Přepínač motivu v hlavičce - přepíná tmavý režim zap/vyp
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             if (document.body.classList.contains('dark-mode')) {
-                // Switch from dark to light
+                // Přepnout z tmavého na světlý
                 document.body.className = '';
                 currentThemeIndex = 0;
                 localStorage.setItem('selectedTheme', '');
                 updateThemeToggleIcon('');
                 updateColorButtonIcon('');
             } else {
-                // Switch to dark mode
+                // Přepnout na tmavý režim
                 document.body.className = 'dark-mode';
                 currentThemeIndex = 9;
                 localStorage.setItem('selectedTheme', 'dark-mode');
@@ -791,7 +791,7 @@ function initThemeSwitcher() {
         });
     }
     
-    // Floating color scheme button - cycles through all themes
+    // Plovoucí barevný tlačítko - cykluje všechny motivy
     if (colorSchemeBtn) {
         colorSchemeBtn.addEventListener('click', () => {
             currentThemeIndex = (currentThemeIndex + 1) % themes.length;
@@ -802,7 +802,7 @@ function initThemeSwitcher() {
             updateThemeToggleIcon(newTheme);
             updateColorButtonIcon(newTheme);
             
-            // Show brief notification of current theme
+            // Zobrazit krátký notifikaci o aktuálním motivu
             showThemeNotification(getThemeName(newTheme));
         });
     }
@@ -848,13 +848,13 @@ function initThemeSwitcher() {
     }
     
     function showThemeNotification(themeName) {
-        // Remove existing notification if any
+        // Odstranit existující notifikaci pokud nějaká je
         const existingNotif = document.querySelector('.theme-notification');
         if (existingNotif) {
             existingNotif.remove();
         }
         
-        // Create and show new notification
+        // Vytvořit a zobrazit novou notifikaci
         const notification = document.createElement('div');
         notification.className = 'theme-notification';
         notification.textContent = themeName;
@@ -886,11 +886,11 @@ function initThemeSwitcher() {
 }
 
 // ==============================================
-// KEYBOARD SHORTCUTS
+// KLÁVESOVÉ ZKRATKY
 // ==============================================
 
 document.addEventListener('keydown', (e) => {
-    // Ctrl/Cmd + Number = navigate to page
+    // Ctrl/Cmd + Číslo = navigovat na stránku
     if (e.ctrlKey || e.metaKey) {
         switch(e.key) {
             case '1':
@@ -918,10 +918,10 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ==============================================
-// BOARD - NÁSTĚNKA (FIREBASE)
+// NÁSTĚNKA (FIREBASE)
 // ==============================================
 
-const ACCESS_CODE = "About You"//ZMĚŇ NA VLASTNÍ KÓD!
+const ACCESS_CODE = "About You"// ZMĚŇ NA VLASTNÍ KÓD!
 let selectedMessageColor = 'pink';
 
 function initBoard() {
@@ -932,12 +932,12 @@ function initBoard() {
     
     if (!unlockBtn || !accessCode) return;
     
-    // Check if already unlocked in session
+    // Zkontrolovat jestli už je odemčeno v session
     if (sessionStorage.getItem('boardUnlocked') === 'true') {
         unlockBoard();
     }
     
-    // Unlock button
+    // Tlačítko na odemknutí
     unlockBtn.addEventListener('click', checkAccess);
     accessCode.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') checkAccess();
@@ -963,7 +963,7 @@ function initBoard() {
         if (accessGate) accessGate.style.display = 'none';
         if (boardContent) boardContent.classList.remove('hidden');
         
-        // Initialize board features
+        // Nastartovat funkce nástěnky
         initMessages();
         initDrawing();
         loadMessages();
@@ -972,7 +972,7 @@ function initBoard() {
 }
 
 // ==============================================
-// TEXTOVÉ VZKAZY
+// TEXTOVÝ VZKAZY
 // ==============================================
 
 function initMessages() {
@@ -983,7 +983,7 @@ function initMessages() {
     
     if (!postBtn || !authorInput || !messageInput) return;
     
-    // Color selection
+    // Výběr barvy
     colorBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             colorBtns.forEach(b => b.classList.remove('selected'));
@@ -992,10 +992,10 @@ function initMessages() {
         });
     });
     
-    // Select pink by default
+    // Vybrat růžovou jako default
     colorBtns[0]?.classList.add('selected');
     
-    // Post message
+    // Poslat vzkaz
     postBtn.addEventListener('click', postMessage);
     
     async function postMessage() {
@@ -1021,10 +1021,10 @@ function initMessages() {
                 createdAt: new Date().toISOString()
             });
             
-            // Clear inputs
+            // Vyčistit inputy
             messageInput.value = '';
             
-            // Success feedback
+            // Feedback po úspěchu
             postBtn.textContent = '✅ Odesláno!';
             setTimeout(() => {
                 postBtn.textContent = '📮 Poslat vzkaz';
@@ -1041,7 +1041,7 @@ function loadMessages() {
     const messagesBoard = document.getElementById('messagesBoard');
     if (!messagesBoard || !db) return;
     
-    // Real-time listener
+    // Real-time listener pro zprávy
     db.collection('messages')
         .orderBy('createdAt', 'desc')
         .limit(50)
@@ -1111,26 +1111,26 @@ function initDrawing() {
     let isDrawing = false;
     let isEraser = false;
     
-    // Set canvas size
+    // Nastavit velikost canvasu
     canvas.width = 800;
     canvas.height = 500;
     
-    // Fill white background
+    // Vyplnit bílým pozadím
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Drawing settings
+    // Nastavení kreslení
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     
-    // Brush size display
+    // Zobrazení velikosti štětce
     if (brushSize && brushSizeDisplay) {
         brushSize.addEventListener('input', () => {
             brushSizeDisplay.textContent = brushSize.value + 'px';
         });
     }
     
-    // Preset colors
+    // Přednastavený barvy
     presetColors.forEach(btn => {
         btn.addEventListener('click', function() {
             const color = this.getAttribute('data-color');
@@ -1140,7 +1140,7 @@ function initDrawing() {
         });
     });
     
-    // Eraser toggle
+    // Přepínač gumy
     if (eraserBtn) {
         eraserBtn.addEventListener('click', () => {
             isEraser = !isEraser;
@@ -1148,7 +1148,7 @@ function initDrawing() {
         });
     }
     
-    // Clear canvas
+    // Vymazat canvas
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
             if (confirm('Smazat celou malůvku?')) {
@@ -1158,13 +1158,13 @@ function initDrawing() {
         });
     }
     
-    // Mouse events
+    // Eventy pro myš
     canvas.addEventListener('mousedown', startDrawing);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stopDrawing);
     canvas.addEventListener('mouseout', stopDrawing);
     
-    // Touch events
+    // Eventy pro dotyk
     canvas.addEventListener('touchstart', handleTouch);
     canvas.addEventListener('touchmove', handleTouch);
     canvas.addEventListener('touchend', stopDrawing);
@@ -1212,7 +1212,7 @@ function initDrawing() {
         canvas.dispatchEvent(mouseEvent);
     }
     
-    // Post drawing
+    // Poslat malůvku
     if (postBtn && authorInput) {
         postBtn.addEventListener('click', async () => {
             const author = authorInput.value.trim();
@@ -1228,7 +1228,7 @@ function initDrawing() {
             }
             
             try {
-                // Convert canvas to base64
+                // Převést canvas na base64
                 const imageData = canvas.toDataURL('image/png');
                 
                 await db.collection('drawings').add({
@@ -1326,7 +1326,7 @@ function createDrawingItem(data) {
 }
 
 // ==============================================
-// UTILITY: Shake Animation
+// UTILITA: Animace zatřesení
 // ==============================================
 
 const style = document.createElement('style');
@@ -1340,7 +1340,7 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ==============================================
-// WELLNESS FEATURES
+// WELLNESS FUNKCE
 // ==============================================
 
 function initWellness() {
@@ -1352,7 +1352,7 @@ function initWellness() {
 }
 
 // ==============================================
-// VIRTUAL HUG
+// VIRTUÁLNÍ OBJETÍ
 // ==============================================
 
 function initVirtualHug() {
@@ -1395,12 +1395,12 @@ function showVirtualHug() {
     
     document.body.appendChild(overlay);
     
-    // Vibrate if supported
+    // Vibrovat pokud je podporováno
     if (navigator.vibrate) {
         navigator.vibrate([200, 100, 200, 100, 200]);
     }
     
-    // Remove after 5 seconds
+    // Odstranit po 5 vteřinách
     setTimeout(() => {
         overlay.style.opacity = '0';
         setTimeout(() => overlay.remove(), 500);
@@ -1408,7 +1408,7 @@ function showVirtualHug() {
 }
 
 // ==============================================
-// BREATHING EXERCISE
+// DÝCHACÍ CVIČENÍ
 // ==============================================
 
 let breathingInterval = null;
@@ -1468,7 +1468,7 @@ function stopBreathing(circle, text) {
 }
 
 // ==============================================
-// MOOD METER
+// MĚŘIČ NÁLADY
 // ==============================================
 
 function initMoodMeter() {
@@ -1499,7 +1499,7 @@ function initMoodMeter() {
             timestamp: Date.now()
         });
         
-        // Keep last 30 entries
+        // Ponechat posledních 30 záznamů
         if (moods.length > 30) moods.shift();
         
         localStorage.setItem('moodMeterHistory', JSON.stringify(moods));
@@ -1511,7 +1511,7 @@ function initMoodMeter() {
         }, 2000);
     });
     
-    // Load and draw chart
+    // Načíst a nakreslit graf
     const moods = JSON.parse(localStorage.getItem('moodMeterHistory') || '[]');
     if (moods.length > 0) {
         drawMoodChart(canvas, moods);
@@ -1531,7 +1531,7 @@ function drawMoodChart(canvas, moods) {
     const graphWidth = width - 2 * padding;
     const graphHeight = height - padding - bottomPadding;
     
-    // Draw axes
+    // Nakreslit osy
     ctx.strokeStyle = '#ccc';
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -1540,7 +1540,7 @@ function drawMoodChart(canvas, moods) {
     ctx.lineTo(width - padding, height - bottomPadding);
     ctx.stroke();
     
-    // Draw Y-axis labels (mood values)
+    // Nakreslit popisky Y osy (hodnoty nálady)
     ctx.fillStyle = '#667eea';
     ctx.font = '11px Arial';
     ctx.textAlign = 'right';
@@ -1549,7 +1549,7 @@ function drawMoodChart(canvas, moods) {
         ctx.fillText(i.toString(), padding - 10, y + 4);
     }
     
-    // Draw line
+    // Nakreslit čáru
     ctx.strokeStyle = '#667eea';
     ctx.lineWidth = 3;
     ctx.beginPath();
@@ -1567,7 +1567,7 @@ function drawMoodChart(canvas, moods) {
     
     ctx.stroke();
     
-    // Draw points and dates
+    // Nakreslit body a datumy
     ctx.textAlign = 'center';
     ctx.font = '10px Arial';
     
@@ -1575,28 +1575,28 @@ function drawMoodChart(canvas, moods) {
         const x = padding + (i / (moods.length - 1 || 1)) * graphWidth;
         const y = height - bottomPadding - ((mood.value - 1) / 9) * graphHeight;
         
-        // Draw point
+        // Nakreslit bod
         ctx.fillStyle = '#667eea';
         ctx.beginPath();
         ctx.arc(x, y, 5, 0, Math.PI * 2);
         ctx.fill();
         
-        // Draw date label (only show every nth date to avoid crowding)
-        const showEvery = Math.ceil(moods.length / 5); // Max 5 dates shown
+        // Nakreslit datum (zobrazit jen každé n-té aby to nebylo moc nabytý)
+        const showEvery = Math.ceil(moods.length / 5); // Max 5 datumů zobrazeno
         if (i % showEvery === 0 || i === moods.length - 1) {
             ctx.save();
             ctx.translate(x, height - bottomPadding + 15);
             ctx.rotate(-Math.PI / 4); // Rotate 45 degrees
             ctx.fillStyle = '#718096';
             
-            // Format date as DD.MM
+            // Formátovat datum jako DD.MM
             const date = new Date(mood.timestamp || Date.now());
             const dateStr = `${date.getDate()}.${date.getMonth() + 1}`;
             ctx.fillText(dateStr, 0, 0);
             ctx.restore();
         }
         
-        // Draw value on hover point (show last 3 values)
+        // Nakreslit hodnotu na bod (zobrazit posledních 3 hodnot)
         if (i >= moods.length - 3) {
             ctx.fillStyle = '#667eea';
             ctx.font = 'bold 11px Arial';
@@ -1606,7 +1606,7 @@ function drawMoodChart(canvas, moods) {
 }
 
 // ==============================================
-// DAILY AFFIRMATION
+// DENNÍ AFIRMACE
 // ==============================================
 
 const affirmations = [
@@ -1649,7 +1649,7 @@ function initDailyAffirmation() {
 }
 
 // ==============================================
-// EMERGENCY COMFORT KIT
+// NOUZOVÁ SADA NA UKLIDNĚNÍ
 // ==============================================
 
 function initEmergencyKit() {
@@ -1664,7 +1664,7 @@ function showEmergencyKit() {
     const overlay = document.createElement('div');
     overlay.className = 'emergency-overlay';
     
-    // CUSTOMIZE: Upravte si texty podle sebe
+    // PŘIZPŮSOB SI: Uprav si texty podle sebe
     const emergencyMessage = "Okamžitě mi napiš, zavolej, cokoliv, ať dělám co dělám, položím to a pomůžu ti, budu s tebou ať tím neprocházíš sama. DISTURB ME, BUDU JEN RÁD, že budu moct být s tebou a pomoct ti.";
     
     const emergencyQuote = {
@@ -1705,12 +1705,12 @@ function showEmergencyKit() {
     
     document.body.appendChild(overlay);
     
-    // Close button
+    // Zavírací tlačítko
     overlay.querySelector('.emergency-close').addEventListener('click', () => {
         overlay.remove();
     });
     
-    // Simple breathing animation
+    // Jednoduchá animace dýchání
     const breathingCircle = overlay.querySelector('#emergencyBreathing');
     let phase = 0;
     setInterval(() => {
@@ -1730,7 +1730,7 @@ function showEmergencyKit() {
 }
 
 // ==============================================
-// MINI GAMES
+// MINIHRY
 // ==============================================
 
 function initGames() {
@@ -1763,10 +1763,10 @@ function initGames() {
 }
 
 function openGame(gameName) {
-    // Hide all games
+    // Schovat všechny hry
     document.querySelectorAll('.game-container').forEach(g => g.classList.add('hidden'));
     
-    // Show selected game
+    // Zobrazit vybranou hru
     const gameMap = {
         'memory': 'memoryGame',
         'bubbles': 'bubblesGame',
@@ -1781,7 +1781,7 @@ function openGame(gameName) {
     if (gameContainer) {
         gameContainer.classList.remove('hidden');
         
-        // Initialize the specific game
+        // Nastartovat specifickou hru
         switch(gameName) {
             case 'memory':
                 initMemoryGame();
@@ -1803,7 +1803,7 @@ function openGame(gameName) {
 }
 
 // ==============================================
-// MEMORY GAME
+// PEXESO
 // ==============================================
 
 let memoryCards = [];
@@ -1834,7 +1834,7 @@ function initMemoryGame() {
     movesDisplay.textContent = '0';
     timeDisplay.textContent = '0:00';
     
-    // Create cards
+    // Vytvořit karty
     cards.forEach((emoji, index) => {
         const card = document.createElement('div');
         card.className = 'memory-card';
@@ -1845,7 +1845,7 @@ function initMemoryGame() {
         memoryCards.push(card);
     });
     
-    // Start timer
+    // Spustit časovač
     if (memoryTimer) clearInterval(memoryTimer);
     memoryTimer = setInterval(() => {
         memorySeconds++;
@@ -1876,7 +1876,7 @@ function checkMemoryMatch() {
     const [card1, card2] = flippedCards;
     
     if (card1.dataset.emoji === card2.dataset.emoji) {
-        // Match!
+        // Shoda!
         card1.classList.add('matched');
         card2.classList.add('matched');
         matchedPairs++;
@@ -1889,7 +1889,7 @@ function checkMemoryMatch() {
             }, 500);
         }
     } else {
-        // No match
+        // Neshoda
         setTimeout(() => {
             card1.classList.remove('flipped');
             card2.classList.remove('flipped');
@@ -1901,7 +1901,7 @@ function checkMemoryMatch() {
 }
 
 // ==============================================
-// BUBBLES GAME
+// HRA S BUBLINAMI
 // ==============================================
 
 let bubblesInterval = null;
@@ -1924,12 +1924,12 @@ function initBubblesGame() {
     
     if (bubblesInterval) clearInterval(bubblesInterval);
     
-    // Spawn bubbles
+    // Spawnovat bubliny
     bubblesInterval = setInterval(() => {
         createBubble(container);
     }, 800);
     
-    // Initial bubbles
+    // Začáteční bubliny
     for (let i = 0; i < 5; i++) {
         createBubble(container);
     }
@@ -1955,7 +1955,7 @@ function createBubble(container) {
         bubbleScore++;
         document.getElementById('bubbleScore').textContent = bubbleScore;
         
-        // Update record
+        // Aktualizovat rekord
         const currentRecord = parseInt(localStorage.getItem('bubbleRecord') || '0');
         if (bubbleScore > currentRecord) {
             localStorage.setItem('bubbleRecord', bubbleScore);
@@ -1964,20 +1964,20 @@ function createBubble(container) {
         
         setTimeout(() => this.remove(), 300);
         
-        // Spawn new bubble
+        // Spawnovat novou bublinu
         createBubble(container);
     });
     
     container.appendChild(bubble);
     
-    // Auto remove after 6 seconds
+    // Automaticky odstranit po 6 vteřinách
     setTimeout(() => {
         if (bubble.parentNode) bubble.remove();
     }, 6000);
 }
 
 // ==============================================
-// COLOR MATCH GAME
+// HRA NA SPOJOVÁNÍ BAREV
 // ==============================================
 
 let colorGrid = [];
@@ -2003,7 +2003,7 @@ function initColorsGame() {
     colorGrid = [];
     selectedTiles = [];
     
-    // Create grid
+    // Vytvořit mřížku
     for (let i = 0; i < gridSize * gridSize; i++) {
         const tile = document.createElement('div');
         tile.className = 'color-tile';
@@ -2035,7 +2035,7 @@ function checkColorMatch() {
     const [tile1, tile2] = selectedTiles;
     
     if (tile1.style.background === tile2.style.background) {
-        // Match - change both to random new color
+        // Shoda - změnit obě na random novou barvu
         const colors = ['#667eea', '#f093fb', '#4facfe', '#fa709a', '#fee140', '#a8edea'];
         const newColor = colors[Math.floor(Math.random() * colors.length)];
         
@@ -2046,7 +2046,7 @@ function checkColorMatch() {
             tile2.classList.remove('selected');
             selectedTiles = [];
             
-            // Check if all same color (win)
+            // Zkontrolovat jestli jsou všechny stejný barvy (výhra)
             const allColors = colorGrid.map(t => t.style.background);
             if (allColors.every(c => c === allColors[0])) {
                 colorLevel++;
@@ -2066,7 +2066,7 @@ function checkColorMatch() {
 }
 
 // ==============================================
-// STAR COLLECTOR GAME
+// HRA NA SBÍRÁNÍ HVĚZDIČEK
 // ==============================================
 
 let starsGameRunning = false;
@@ -2081,9 +2081,9 @@ function initStarsGame() {
     const canvas = document.getElementById('starsCanvas');
     if (!canvas) return;
     
-    // Clone canvas to remove old event listeners
+    // Naklonovat canvas aby se odstranily starý event listenery
     const newCanvas = canvas.cloneNode(true);
-    newCanvas.id = 'starsCanvas'; // Keep the ID
+    newCanvas.id = 'starsCanvas'; // Zachovat ID
     canvas.parentNode.replaceChild(newCanvas, canvas);
     const ctx = newCanvas.getContext('2d');
     
@@ -2125,14 +2125,14 @@ function gameLoopStars(ctx, canvas) {
     
     starsGameFrames++;
     
-    // Progressive difficulty - increase speed every 5 stars collected
+    // Progresivní obtížnost - zvýšit rychlost každých 5 chycených hvězdiček
     starsGameSpeed = 1.0 + (Math.floor(starsCollected / 5) * 0.05);
     document.getElementById('starsSpeed').textContent = starsGameSpeed.toFixed(1) + 'x';
     
-    // Clear canvas
+    // Vymazat canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Spawn stars - frequency increases with speed (much slower)
+    // Spawnovat hvězdičky - frekvence se zvyšuje s rychlostí (hodně pomalejší)
     const spawnChance = 0.008 + (starsGameSpeed - 1.0) * 0.005;
     if (Math.random() < spawnChance) {
         stars.push({
@@ -2142,26 +2142,26 @@ function gameLoopStars(ctx, canvas) {
         });
     }
     
-    // Update and draw stars
+    // Aktualizovat a nakreslit hvězdičky
     for (let i = stars.length - 1; i >= 0; i--) {
         const star = stars[i];
         star.y += star.speed;
         
-        // Draw star
+        // Nakreslit hvězdičku
         ctx.font = '30px Arial';
         ctx.fillText('⭐', star.x, star.y);
         
-        // Check collision
+        // Zkontrolovat kolizi
         if (star.x < player.x + player.width &&
             star.x + 30 > player.x &&
             star.y < player.y + player.height &&
             star.y + 30 > player.y) {
-            // Caught!
+            // Chyceno!
             starsCollected++;
             document.getElementById('starsCollected').textContent = starsCollected;
             stars.splice(i, 1);
         } else if (star.y > canvas.height) {
-            // Missed
+            // Minuto
             starsLives--;
             const hearts = '❤️'.repeat(Math.max(0, starsLives));
             document.getElementById('starsLives').textContent = hearts;
@@ -2179,7 +2179,7 @@ function gameLoopStars(ctx, canvas) {
         }
     }
     
-    // Draw player
+    // Nakreslit hráče
     ctx.fillStyle = '#667eea';
     ctx.fillRect(player.x, player.y, player.width, player.height);
     ctx.fillRect(player.x + 10, player.y - 10, 40, 10);
@@ -2188,7 +2188,7 @@ function gameLoopStars(ctx, canvas) {
 }
 
 // ==============================================
-// AFFIRMATION RAIN GAME
+// HRA DEŠŤ AFIRMACÍ
 // ==============================================
 
 let affirmationGameRunning = false;
@@ -2322,13 +2322,13 @@ function gameLoopAffirmations(ctx, canvas, basket, affirmations) {
 }
 
 // ==============================================
-// FIREBASE LEADERBOARD
+// FIREBASE ŽEBŘÍČEK
 // ==============================================
 
 function saveGameScore(gameName, score) {
     if (!db) return;
     
-    // Ask for player name if not set
+    // Zeptat se na jméno hráče pokud není nastavený
     let playerName = localStorage.getItem('playerName');
     if (!playerName) {
         playerName = prompt('🌟 Zadej své jméno pro žebříček:', 'Radanka') || 'Radanka';
@@ -2359,7 +2359,7 @@ function loadLeaderboard(gameName, elementId) {
     
     leaderboardEl.innerHTML = '<p style="opacity: 0.6;">Načítání...</p>';
     
-    // Fetch all from game, then sort client-side (no index needed)
+    // Načíst všechny ze hry, pak seřadit na klientu (žádný index nepotřeba)
     db.collection('leaderboard')
         .where('game', '==', gameName)
         .get()
@@ -2369,7 +2369,7 @@ function loadLeaderboard(gameName, elementId) {
                 return;
             }
             
-            // Sort client-side
+            // Seřadit na klientu
             const scores = [];
             snapshot.forEach(doc => {
                 scores.push(doc.data());
@@ -2399,7 +2399,7 @@ function loadLeaderboard(gameName, elementId) {
 }
 
 // ==============================================
-// LETTER MODAL FUNCTIONALITY
+// FUNKCE MODALU S DOPISY
 // ==============================================
 
 const letterContents = {
@@ -2538,7 +2538,7 @@ const letterContents = {
 };
 
 // ==============================================
-// MUSIC SYSTEM
+// HUDEBNÍ SYSTÉM
 // ==============================================
 
 const musicSettings = {
@@ -2559,7 +2559,7 @@ function initMusicPlayer() {
     const currentTimeDisplay = document.getElementById('currentTime');
     const totalTimeDisplay = document.getElementById('totalTime');
     
-    // Načíst všechny audio elementy
+    // Načíst všechny audio prvky
     musicSettings.mainAudio = document.getElementById('mainAudio');
     musicSettings.letterAudios = {
         '1': document.getElementById('letter1Audio'),
@@ -2571,12 +2571,12 @@ function initMusicPlayer() {
     // Nastavit aktuální audio na hlavní hudbu
     musicSettings.currentAudio = musicSettings.mainAudio;
     
-    // Nastavit počáteční hlasitost
+    // Nastavit začáteční hlasitost
     if (musicSettings.currentAudio) {
         musicSettings.currentAudio.volume = 0.5;
         
-        // Automatické přehrávání po načtení stránky
-        // Pozor: některé prohlížeče blokují autoplay, dokud uživatel neinteraguje se stránkou
+        // Automatický přehrávání po načtení stránky
+        // Pozor: některý prohlížeče blokujou autoplay, dokud uživatel neinteraguje se stránkou
         const tryAutoplay = () => {
             const playPromise = musicSettings.currentAudio.play();
             if (playPromise !== undefined) {
@@ -2606,17 +2606,17 @@ function initMusicPlayer() {
     
     if (!musicToggle || !musicPlayer) return;
     
-    // Toggle music player
+    // Přepnout hudební přehrávač
     musicToggle.addEventListener('click', () => {
         musicPlayer.classList.toggle('active');
     });
     
-    // Close music player
+    // Zavřít hudební přehrávač
     closeMusicBtn.addEventListener('click', () => {
         musicPlayer.classList.remove('active');
     });
     
-    // Play/Pause button
+    // Tlačítko přehrát/pauza
     playPauseBtn.addEventListener('click', () => {
         if (musicSettings.isPlaying) {
             musicSettings.currentAudio.pause();
@@ -2628,24 +2628,24 @@ function initMusicPlayer() {
         updatePlayPauseButton();
     });
     
-    // Volume control
+    // Ovládání hlasitosti
     volumeSlider.addEventListener('input', (e) => {
         const volume = e.target.value / 100;
         musicSettings.currentAudio.volume = volume;
-        // Aplikovat na všechny audio elementy
+        // Aplikovat na všechny audio prvky
         if (musicSettings.mainAudio) musicSettings.mainAudio.volume = volume;
         Object.values(musicSettings.letterAudios).forEach(audio => {
             if (audio) audio.volume = volume;
         });
     });
     
-    // Progress slider
+    // Posuvník postupu
     progressSlider.addEventListener('input', (e) => {
         const time = (e.target.value / 100) * musicSettings.currentAudio.duration;
         musicSettings.currentAudio.currentTime = time;
     });
     
-    // Update progress
+    // Aktualizovat postup
     if (musicSettings.currentAudio) {
         musicSettings.currentAudio.addEventListener('timeupdate', () => {
             const progress = (musicSettings.currentAudio.currentTime / musicSettings.currentAudio.duration) * 100;
@@ -2675,22 +2675,22 @@ function switchToLetterMusic(letterId) {
     const musicLabel = document.getElementById('currentMusicLabel');
     
     if (letterAudio && musicSettings.currentAudio !== letterAudio) {
-        // Pozastavit a resetovat aktuální audio
+        // Zastavit a resetovat aktuální audio
         if (musicSettings.currentAudio) {
             musicSettings.currentAudio.pause();
             musicSettings.currentAudio.currentTime = 0;
         }
         
-        // Nastavit nové audio
+        // Nastavit nový audio
         musicSettings.currentAudio = letterAudio;
         musicSettings.currentLetter = letterId;
         musicSettings.currentAudio.volume = document.getElementById('volumeSlider').value / 100;
         
-        // Přehrát novou hudbu 
+        // Pustit novou hudbu 
         musicSettings.currentAudio.play();
         musicSettings.isPlaying = true;
         
-        // Aktualizovat label
+        // Aktualizovat popisek
         const letterTitles = {
             '1': 'Naše oblíbená yearning songa..promiň mi to ❤️',
             '2': 'Hudba k dopisu - Chybím ti',
@@ -2714,12 +2714,12 @@ function restoreMainMusic() {
             musicSettings.currentAudio.currentTime = 0;
         }
         
-        // Vrátit se k hlavní hudbě
+        // Vrátit se zpátky k hlavní hudbě
         musicSettings.currentAudio = musicSettings.mainAudio;
         musicSettings.currentLetter = null;
         musicSettings.currentAudio.volume = document.getElementById('volumeSlider').value / 100;
         
-        // Přehrát hlavní hudbu
+        // Pustit hlavní hudbu
         musicSettings.currentAudio.play();
         musicSettings.isPlaying = true;
         
@@ -2738,31 +2738,31 @@ function initLetterModal() {
     const modalClose = modal.querySelector('.letter-modal-close');
     const envelopes = document.querySelectorAll('.letter-envelope');
     
-    // Otevření dopisu
+    // Otevření dopisu při kliknutí
     envelopes.forEach(envelope => {
         envelope.addEventListener('click', function() {
             const letterId = this.dataset.letter;
             const letterData = letterContents[letterId];
             
             if (letterData) {
-                // Nastavení obsahu
+                // Nastavit obsah
                 document.getElementById('letterModalTitle').textContent = letterData.title;
                 document.getElementById('letterModalBody').innerHTML = letterData.content;
                 
-                // Nascrollovat do středu stránky před zobrazením modalu
+                // Scrollnout do prostředka stránky před zobrazením modalu
                 const scrollToMiddle = (document.documentElement.scrollHeight - window.innerHeight) / 2;
                 window.scrollTo({ top: scrollToMiddle, behavior: 'smooth' });
                 
-                // Přepnout na hudbu dopisu
+                // Přepnout na hudbu k dopisu
                 switchToLetterMusic(letterId);
                 
-                // Zobrazení modalu
+                // Zobrazit modal
                 setTimeout(() => {
                     modal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Zakázat scrollování pozadí
+                    document.body.style.overflow = 'hidden'; // Zakázat scrollování na pozadí
                 }, 100);
                 
-                // Animace obálky
+                // Animace obálky při kliknutí
                 this.style.transform = 'scale(1.05)';
                 setTimeout(() => {
                     this.style.transform = '';
@@ -2771,17 +2771,17 @@ function initLetterModal() {
         });
     });
     
-    // Zavření modalu
+    // Zavřít modal
     function closeModal() {
         modal.classList.remove('active');
-        document.body.style.overflow = ''; // Povolit scrollování
-        restoreMainMusic(); // Vrátit hlavní hudbu
+        document.body.style.overflow = ''; // Povolit scrollování zase
+        restoreMainMusic(); // Vrátit hlavní hudbu zpátky
     }
     
     modalClose.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', closeModal);
     
-    // Zavření na ESC
+    // Zavřít na ESC klávesu
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
@@ -2789,7 +2789,7 @@ function initLetterModal() {
     });
 }
 
-// Inicializace po načtení stránky
+// Nastartovat po načtení stránky
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         initLetterModal();
